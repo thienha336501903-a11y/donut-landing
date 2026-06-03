@@ -1,8 +1,9 @@
 {
-  "name": "landing-page",
-  "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "googleapis": "^126.0.0"
-  }
+"name": "landing-page",
+"version": "1.0.0",
+"type": "module",
+"dependencies": {
+"googleapis": "^126.0.0",
+"cloudinary": "^2.3.0"
+}
 }
