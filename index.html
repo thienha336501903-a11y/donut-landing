@@ -1,5 +1,157 @@
-Tên khóa học
-Thông tin chuyển khoản
-Ô nhập Gmail
-Ô upload bill
-Nút gửi đăng ký
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng ký khóa học Donut nhiều vị AN</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="max-w-xl mx-auto p-4">
+
+    <div class="bg-white rounded-xl shadow-lg p-6">
+
+        <h1 class="text-3xl font-bold text-center text-pink-600 mb-4">
+            KHÓA HỌC DONUT NHIỀU VỊ AN
+        </h1>
+
+        <img
+            src="https://images.unsplash.com/photo-1551024601-bec78aea704b"
+            class="rounded-lg mb-4 w-full h-64 object-cover"
+        >
+
+        <div class="bg-yellow-50 border rounded-lg p-4 mb-5">
+            <h2 class="font-bold text-lg mb-2">
+                Thông tin chuyển khoản
+            </h2>
+
+            <p><b>Ngân hàng:</b> MB BANK</p>
+            <p><b>Số tài khoản:</b> 0987654321</p>
+            <p><b>Chủ tài khoản:</b> NGUYỄN VĂN A</p>
+            <p><b>Số tiền:</b> 500.000đ</p>
+            <p class="text-red-600 mt-2">
+                Nội dung CK: DONUT + Gmail của bạn
+            </p>
+        </div>
+
+        <form id="regForm" class="space-y-4">
+
+            <div>
+                <label class="block font-medium mb-1">
+                    Gmail nhận khóa học
+                </label>
+
+                <input
+                    type="email"
+                    id="gmail"
+                    required
+                    class="w-full border rounded-lg p-3"
+                    placeholder="Nhập Gmail của bạn"
+                >
+            </div>
+
+            <div>
+                <label class="block font-medium mb-1">
+                    Upload bill chuyển khoản
+                </label>
+
+                <input
+                    type="file"
+                    id="bill"
+                    required
+                    accept="image/*"
+                    class="w-full"
+                >
+            </div>
+
+            <button
+                id="btnSubmit"
+                type="submit"
+                class="w-full bg-pink-600 text-white py-3 rounded-lg font-bold hover:bg-pink-700"
+            >
+                GỬI ĐĂNG KÝ
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById('regForm').addEventListener('submit', async (e)=>{
+
+    e.preventDefault();
+
+    const btn = document.getElementById('btnSubmit');
+
+    btn.disabled = true;
+    btn.innerText = 'ĐANG XỬ LÝ...';
+
+    const gmail = document.getElementById('gmail').value;
+
+    const file = document.getElementById('bill').files[0];
+
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onloadend = async ()=>{
+
+        const base64Data = reader.result.split(',')[1];
+
+        try {
+
+            const response = await fetch('/api/register', {
+
+                method:'POST',
+
+                headers:{
+                    'Content-Type':'application/json'
+                },
+
+                body:JSON.stringify({
+
+                    gmail,
+                    billName:file.name,
+                    billType:file.type,
+                    billData:base64Data
+
+                })
+
+            });
+
+            const data = await response.json();
+
+            if(response.ok){
+
+                alert('Đăng ký thành công');
+
+                document.getElementById('regForm').reset();
+
+            }else{
+
+                alert(data.error || 'Lỗi hệ thống');
+
+            }
+
+        } catch(err){
+
+            alert('Không thể kết nối server');
+
+        }
+
+        btn.disabled = false;
+        btn.innerText = 'GỬI ĐĂNG KÝ';
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
