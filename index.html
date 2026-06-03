@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Đăng ký khóa học Donut nhiều vị AN</title>
+<title>Đăng ký khóa học</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -11,146 +11,173 @@
 
 <div class="max-w-xl mx-auto p-4">
 
-    <div class="bg-white rounded-xl shadow-lg p-6">
+  <div class="bg-white rounded-xl shadow-lg p-6">
 
-        <h1 class="text-3xl font-bold text-center text-pink-600 mb-4">
-            KHÓA HỌC DONUT NHIỀU VỊ AN
-        </h1>
+    <h1 id="courseName" class="text-3xl font-bold text-center text-pink-600 mb-4">
+      Đang tải khóa học...
+    </h1>
 
-        <img
-            src="https://images.unsplash.com/photo-1551024601-bec78aea704b"
-            class="rounded-lg mb-4 w-full h-64 object-cover"
-        >
+    <img
+      id="courseImage"
+      src=""
+      alt="Ảnh khóa học"
+      class="rounded-lg mb-4 w-full h-64 object-cover bg-gray-200"
+    >
 
-        <div class="bg-yellow-50 border rounded-lg p-4 mb-5">
-            <h2 class="font-bold text-lg mb-2">
-                Thông tin chuyển khoản
-            </h2>
+    <div class="bg-yellow-50 border rounded-lg p-4 mb-5">
+      <h2 class="font-bold text-lg mb-2">
+        Thông tin chuyển khoản
+      </h2>
 
-            <p><b>Ngân hàng:</b> MB BANK</p>
-            <p><b>Số tài khoản:</b> 0987654321</p>
-            <p><b>Chủ tài khoản:</b> NGUYỄN VĂN A</p>
-            <p><b>Số tiền:</b> 500.000đ</p>
-            <p class="text-red-600 mt-2">
-                Nội dung CK: DONUT + Gmail của bạn
-            </p>
-        </div>
+      <p><b>Ngân hàng:</b> <span id="bankName">Đang tải...</span></p>
+      <p><b>Số tài khoản:</b> <span id="bankAccount">Đang tải...</span></p>
+      <p><b>Chủ tài khoản:</b> <span id="bankOwner">Đang tải...</span></p>
+      <p><b>Số tiền:</b> <span id="price">Đang tải...</span></p>
 
-        <form id="regForm" class="space-y-4">
-
-            <div>
-                <label class="block font-medium mb-1">
-                    Gmail nhận khóa học
-                </label>
-
-                <input
-                    type="email"
-                    id="gmail"
-                    required
-                    class="w-full border rounded-lg p-3"
-                    placeholder="Nhập Gmail của bạn"
-                >
-            </div>
-
-            <div>
-                <label class="block font-medium mb-1">
-                    Upload bill chuyển khoản
-                </label>
-
-                <input
-                    type="file"
-                    id="bill"
-                    required
-                    accept="image/*"
-                    class="w-full"
-                >
-            </div>
-
-            <button
-                id="btnSubmit"
-                type="submit"
-                class="w-full bg-pink-600 text-white py-3 rounded-lg font-bold hover:bg-pink-700"
-            >
-                GỬI ĐĂNG KÝ
-            </button>
-
-        </form>
-
+      <p class="text-red-600 mt-2">
+        Nội dung CK: <span id="transferNote">Đang tải...</span>
+      </p>
     </div>
+
+    <form id="regForm" class="space-y-4">
+
+      <div>
+        <label class="block font-medium mb-1">
+          Gmail nhận khóa học
+        </label>
+
+        <input
+          type="email"
+          id="gmail"
+          required
+          class="w-full border rounded-lg p-3"
+          placeholder="Nhập Gmail của bạn"
+        >
+      </div>
+
+      <div>
+        <label class="block font-medium mb-1">
+          Upload bill chuyển khoản
+        </label>
+
+        <input
+          type="file"
+          id="bill"
+          required
+          accept="image/*"
+          class="w-full"
+        >
+      </div>
+
+      <button
+        id="btnSubmit"
+        type="submit"
+        class="w-full bg-pink-600 text-white py-3 rounded-lg font-bold hover:bg-pink-700"
+      >
+        GỬI ĐĂNG KÝ
+      </button>
+
+    </form>
+
+  </div>
 
 </div>
 
 <script>
+async function loadConfig() {
+  try {
+    const res = await fetch('/api/config');
+    const data = await res.json();
 
-document.getElementById('regForm').addEventListener('submit', async (e)=>{
+    document.getElementById('courseName').innerText =
+      data.courseName || 'KHÓA HỌC DONUT NHIỀU VỊ AN';
 
-    e.preventDefault();
+    document.getElementById('courseImage').src =
+      data.imageUrl || 'https://images.unsplash.com/photo-1551024601-bec78aea704b';
 
-    const btn = document.getElementById('btnSubmit');
+    document.getElementById('bankName').innerText =
+      data.bankName || 'MB BANK';
 
-    btn.disabled = true;
-    btn.innerText = 'ĐANG XỬ LÝ...';
+    document.getElementById('bankAccount').innerText =
+      data.bankAccount || '0987654321';
 
-    const gmail = document.getElementById('gmail').value;
+    document.getElementById('bankOwner').innerText =
+      data.bankOwner || 'NGUYỄN VĂN A';
 
-    const file = document.getElementById('bill').files[0];
+    document.getElementById('price').innerText =
+      data.price || '500.000đ';
 
-    const reader = new FileReader();
+    document.getElementById('transferNote').innerText =
+      data.transferNote || 'DONUT + Gmail của bạn';
 
-    reader.readAsDataURL(file);
+  } catch (err) {
+    console.log('Không tải được cấu hình:', err);
+  }
+}
 
-    reader.onloadend = async ()=>{
+loadConfig();
 
-        const base64Data = reader.result.split(',')[1];
+document.getElementById('regForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-        try {
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled = true;
+  btn.innerText = 'ĐANG XỬ LÝ...';
 
-            const response = await fetch('/api/register', {
+  const gmail = document.getElementById('gmail').value;
+  const file = document.getElementById('bill').files[0];
 
-                method:'POST',
+  if (!file) {
+    alert('Vui lòng chọn ảnh bill chuyển khoản');
+    btn.disabled = false;
+    btn.innerText = 'GỬI ĐĂNG KÝ';
+    return;
+  }
 
-                headers:{
-                    'Content-Type':'application/json'
-                },
+  if (file.size > 5 * 1024 * 1024) {
+    alert('Ảnh bill quá lớn. Vui lòng chọn ảnh dưới 5MB.');
+    btn.disabled = false;
+    btn.innerText = 'GỬI ĐĂNG KÝ';
+    return;
+  }
 
-                body:JSON.stringify({
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
 
-                    gmail,
-                    billName:file.name,
-                    billType:file.type,
-                    billData:base64Data
+  reader.onloadend = async () => {
+    const base64Data = reader.result.split(',')[1];
 
-                })
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          gmail,
+          billName: file.name,
+          billType: file.type,
+          billData: base64Data
+        })
+      });
 
-            });
+      const data = await response.json();
 
-            const data = await response.json();
+      if (response.ok) {
+        alert('Đăng ký thành công. Bill của bạn đã được ghi nhận.');
+        document.getElementById('regForm').reset();
+      } else {
+        alert(data.error || 'Lỗi hệ thống');
+      }
 
-            if(response.ok){
-
-                alert('Đăng ký thành công');
-
-                document.getElementById('regForm').reset();
-
-            }else{
-
-                alert(data.error || 'Lỗi hệ thống');
-
-            }
-
-        } catch(err){
-
-            alert('Không thể kết nối server');
-
-        }
-
-        btn.disabled = false;
-        btn.innerText = 'GỬI ĐĂNG KÝ';
-
+    } catch (err) {
+      alert('Không thể kết nối server');
     }
 
+    btn.disabled = false;
+    btn.innerText = 'GỬI ĐĂNG KÝ';
+  };
 });
-
 </script>
 
 </body>
