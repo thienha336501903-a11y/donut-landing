@@ -1,4 +1,5 @@
 import { google } from "googleapis";
+import { Readable } from "stream";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -31,34 +32,27 @@ export default async function handler(req, res) {
       },
       media: {
         mimeType: billType,
-        body: require("stream").Readable.from(buffer),
+        body: Readable.from(buffer),
       },
       fields: "webViewLink",
     });
 
-    const time = new Date().toLocaleString("vi-VN");
+    const time = new Date().toLocaleString("vi-VN", {
+      timeZone: "Asia/Ho_Chi_Minh",
+    });
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: "Sheet1!A:D",
       valueInputOption: "RAW",
       requestBody: {
-        values: [
-          [
-            time,
-            gmail,
-            uploadedFile.data.webViewLink,
-            "Chờ duyệt",
-          ],
-        ],
+        values: [[time, gmail, uploadedFile.data.webViewLink, "Chờ duyệt"]],
       },
     });
 
-    return res.status(200).json({
-      success: true,
-    });
+    return res.status(200).json({ success: true });
   } catch (error) {
-    console.error(error);
+    console.error("REGISTER_ERROR:", error);
 
     return res.status(500).json({
       error: error.message,
