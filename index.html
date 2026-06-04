@@ -202,7 +202,7 @@
         <div class="tape"></div>
         <div class="photo rounded-[18px] max-w-[520px] mx-auto">
           <div class="rounded-[14px] overflow-hidden bg-[#f1ddb8]">
-            <img id="courseImage" src="" alt="Ảnh khóa học" loading="eager" decoding="async" fetchpriority="high" class="w-full aspect-[4/5] object-cover">
+            <img id="courseImage" src="" alt="Ảnh khóa học" loading="eager" decoding="async" fetchpriority="high" class="w-full aspect-[9/16] object-contain bg-[#fff8ea]">
           </div>
           <p class="hand-font text-center text-3xl sm:text-4xl text-[#6b4028] mt-3 leading-none">
             handmade recipe class
@@ -235,12 +235,6 @@
             <p id="price" class="title-font text-4xl sm:text-5xl font-black text-[#a65333] mt-1">Đang tải...</p>
           </div>
 
-          <div class="mt-6 space-y-3 font-extrabold text-[#4a2c1b] text-sm sm:text-base">
-            <p class="flex gap-3"><span class="text-[#c47a43]">✿</span><span>Nhận đầy đủ công thức, tài liệu và hướng dẫn thực hành chi tiết</span></p>
-            <p class="flex gap-3"><span class="text-[#c47a43]">✿</span><span>Quyền truy cập khóa học được cấp trực tiếp qua Gmail đăng ký</span></p>
-            <p class="flex gap-3"><span class="text-[#c47a43]">✿</span><span>Xác nhận thanh toán và kích hoạt quyền học trong vòng 24 giờ</span></p>
-          </div>
-
           <a href="#payment" class="primary-btn mt-7 inline-flex w-full sm:w-auto justify-center rounded-[18px] px-7 py-4 text-base sm:text-lg font-black uppercase tracking-wide transition">
             Tiến hành thanh toán khóa học
           </a>
@@ -251,85 +245,84 @@
 
     <!-- PAYMENT PAGE -->
     <section id="payment" class="p-4 sm:p-7 lg:p-10 pt-2 sm:pt-4">
-      <div class="grid lg:grid-cols-[1.1fr_.9fr] gap-6 lg:gap-8 items-start">
+      <div class="paper-card rounded-[32px] p-5 sm:p-7 lg:p-8 relative">
+        <div class="tape"></div>
 
-        <div class="paper-card rounded-[32px] p-5 sm:p-7 lg:p-8 relative">
-          <div class="tape"></div>
-
-          <div class="mb-6">
-            <p class="hand-font text-3xl sm:text-4xl text-[#8a5536]">Phiếu chuyển khoản</p>
-            <h2 class="title-font text-4xl sm:text-5xl font-black text-[#3b2416] leading-tight">Thông tin thanh toán</h2>
-          </div>
-
-          <div class="kraft-card rounded-[28px] p-4 sm:p-5 space-y-4">
-            <div class="pb-3 border-b border-[#6b4028]/15">
-              <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Ngân hàng</p>
-              <p class="font-black text-[#3b2416] text-lg" id="bankName">Đang tải...</p>
-            </div>
-
-            <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#6b4028]/15">
-              <div class="min-w-0">
-                <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Số tài khoản</p>
-                <p class="font-black text-2xl tracking-wide text-[#3b2416] break-all" id="bankAccount">Đang tải...</p>
-              </div>
-              <button onclick="copyValue('bankAccount')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full brown-btn transition">Copy</button>
-            </div>
-
-            <div class="pb-3 border-b border-[#6b4028]/15">
-              <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Chủ tài khoản</p>
-              <p class="font-black text-[#3b2416] text-lg" id="bankOwner">Đang tải...</p>
-            </div>
-
-            <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#6b4028]/15">
-              <div class="min-w-0">
-                <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Số tiền</p>
-                <p class="title-font font-black text-4xl text-[#a65333]" id="pricePayment">Đang tải...</p>
-              </div>
-              <button onclick="copyValue('price')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full brown-btn transition">Copy</button>
-            </div>
-
-            <div class="bg-[#fff0d1] border-2 border-[#c47a43]/24 rounded-[22px] p-4 flex items-center justify-between gap-3">
-              <div class="min-w-0">
-                <p class="text-xs font-black uppercase tracking-wider text-[#a65333] mb-1">Nội dung chuyển khoản</p>
-                <p class="font-black text-xl text-[#9f3f2e] break-words" id="transferNote">Đang tải...</p>
-              </div>
-              <button onclick="copyValue('transferNote')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full bg-[#9f3f2e] text-[#fff8ea] hover:brightness-105 transition">Copy</button>
-            </div>
-
-            <a href="#register" class="primary-btn block rounded-[18px] px-4 py-3 text-center transition">
-              <span class="block text-sm sm:text-base font-black uppercase tracking-wide">
-                Bấm để up bill CK thành công
-              </span>
-            </a>
-          </div>
+        <div class="mb-6 text-center sm:text-left">
+          <p class="hand-font text-3xl sm:text-4xl text-[#8a5536]">Phiếu chuyển khoản</p>
+          <h2 class="title-font text-4xl sm:text-5xl font-black text-[#3b2416] leading-tight">Thanh toán khóa học</h2>
+          <p class="mt-2 text-[#6b4028]/76 font-bold leading-relaxed">
+            Chuyển khoản đúng thông tin bên dưới, sau đó gửi bill xác nhận để được cấp quyền học.
+          </p>
         </div>
 
-        <div class="paper-card rounded-[32px] p-5 sm:p-7 lg:p-8 relative">
-          <div class="tape"></div>
+        <div class="kraft-card rounded-[30px] p-4 sm:p-6">
+          <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-6 lg:gap-8 items-start">
+            <div class="space-y-4">
+              <div class="pb-3 border-b border-[#6b4028]/15">
+                <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Ngân hàng</p>
+                <p class="font-black text-[#3b2416] text-lg" id="bankName">Đang tải...</p>
+              </div>
 
-          <div class="text-center">
-            <p class="hand-font text-3xl sm:text-4xl text-[#8a5536]">Mã QR thanh toán</p>
-            <h3 class="title-font text-4xl sm:text-5xl font-black text-[#3b2416] leading-tight mb-5">Quét QR</h3>
-          </div>
+              <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#6b4028]/15">
+                <div class="min-w-0">
+                  <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Số tài khoản</p>
+                  <p class="font-black text-2xl tracking-wide text-[#3b2416] break-all" id="bankAccount">Đang tải...</p>
+                </div>
+                <button onclick="copyValue('bankAccount')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full brown-btn transition">Copy</button>
+              </div>
 
-          <div id="qrBox" class="hidden text-center">
-            <div class="cutout rounded-[26px] p-4 inline-block w-full max-w-[310px] mx-auto">
-              <img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-full rounded-[18px] bg-white p-2">
+              <div class="pb-3 border-b border-[#6b4028]/15">
+                <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Chủ tài khoản</p>
+                <p class="font-black text-[#3b2416] text-lg" id="bankOwner">Đang tải...</p>
+              </div>
+
+              <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#6b4028]/15">
+                <div class="min-w-0">
+                  <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Số tiền</p>
+                  <p class="title-font font-black text-4xl text-[#a65333]" id="pricePayment">Đang tải...</p>
+                </div>
+                <button onclick="copyValue('price')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full brown-btn transition">Copy</button>
+              </div>
+
+              <div class="bg-[#fff0d1] border-2 border-[#c47a43]/24 rounded-[22px] p-4 flex items-center justify-between gap-3">
+                <div class="min-w-0">
+                  <p class="text-xs font-black uppercase tracking-wider text-[#a65333] mb-1">Nội dung chuyển khoản</p>
+                  <p class="font-black text-xl text-[#9f3f2e] break-words" id="transferNote">Đang tải...</p>
+                </div>
+                <button onclick="copyValue('transferNote')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full bg-[#9f3f2e] text-[#fff8ea] hover:brightness-105 transition">Copy</button>
+              </div>
+
+              <a href="#register" class="primary-btn block rounded-[18px] px-4 py-3 text-center transition">
+                <span class="block text-sm sm:text-base font-black uppercase tracking-wide">
+                  Bấm để up bill CK thành công
+                </span>
+              </a>
             </div>
-            <p class="text-sm text-[#6b4028]/72 mt-3 font-bold">Quét mã bằng app ngân hàng để tự động điền thông tin.</p>
-          </div>
 
-          <div id="qrEmpty" class="text-center text-[#6b4028]/66 py-8 font-bold">
-            Chưa có QR. Hãy thêm <b>qrImageUrl</b> trong tab Config.
-          </div>
+            <div class="bg-[#fffaf0] border border-[#6b4028]/16 rounded-[28px] p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(107,64,40,.10)]">
+              <p class="hand-font text-3xl sm:text-4xl text-[#8a5536]">Mã QR thanh toán</p>
+              <h3 class="title-font text-3xl sm:text-4xl font-black text-[#3b2416] leading-tight mb-4">Quét QR</h3>
 
-          <div id="downloadQrBox" class="hidden mt-4 text-center">
-            <button onclick="downloadQR()" class="primary-btn w-full sm:w-auto py-3 px-6 rounded-[18px] text-sm font-black uppercase transition">
-              Tải QR về máy
-            </button>
+              <div id="qrBox" class="hidden text-center">
+                <div class="cutout rounded-[24px] p-3 inline-block w-full max-w-[280px] mx-auto">
+                  <img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-full rounded-[18px] bg-white p-2">
+                </div>
+                <p class="text-sm text-[#6b4028]/72 mt-3 font-bold">Quét mã bằng app ngân hàng để tự động điền thông tin.</p>
+              </div>
+
+              <div id="qrEmpty" class="text-center text-[#6b4028]/66 py-8 font-bold">
+                Chưa có QR. Hãy thêm <b>qrImageUrl</b> trong tab Config.
+              </div>
+
+              <div id="downloadQrBox" class="hidden mt-4 text-center">
+                <button onclick="downloadQR()" class="primary-btn w-full sm:w-auto py-3 px-6 rounded-[18px] text-sm font-black uppercase transition">
+                  Tải QR về máy
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-
       </div>
     </section>
 
