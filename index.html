@@ -255,8 +255,10 @@ async function loadConfig() {
     const courseImage =
       document.getElementById('courseImage');
 
-    document.getElementById('courseName').innerText =
-      data.courseName || '';
+ window.currentCourseName = data.courseName || '';
+
+document.getElementById('courseName').innerText =
+  window.currentCourseName;
 
     courseImage.src =
       data.imageUrl || '';
@@ -393,7 +395,14 @@ document.getElementById('regForm').addEventListener('submit', async (e) => {
       const response = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ gmail, billName: file.name, billType: file.type, billData: base64Data })
+       body: JSON.stringify({
+  gmail,
+  billName: file.name,
+  billType: file.type,
+  billData: base64Data,
+  course: new URLSearchParams(window.location.search).get('course') || 'donut',
+  courseName: window.currentCourseName || ''
+})
       });
 
       setProgress(90, 'Đang ghi nhận đăng ký...');
