@@ -1,6 +1,43 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <script>
+  async function checkSecurity() {
+    // Tạm thời ẩn toàn bộ giao diện để bảo mật
+    document.documentElement.style.display = 'none'; 
+    
+    let passwordAttempt = prompt("Vui lòng nhập mật khẩu quản trị để truy cập:");
+    
+    if (!passwordAttempt) {
+      window.location.href = "index.html";
+      return;
+    }
+
+    try {
+      // Gửi mật khẩu lên API ẩn phía server để check với Vercel
+      const response = await fetch('/api/check-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: passwordAttempt })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Nếu đúng mật khẩu -> Hiển thị lại giao diện trang web công khai
+        document.documentElement.style.display = 'block';
+      } else {
+        alert("Sai mật khẩu bảo mật!");
+        window.location.href = "index.html";
+      }
+    } catch (error) {
+      alert("Lỗi kết nối bảo mật!");
+      window.location.href = "index.html";
+    }
+  }
+  // Kích hoạt chạy ngay khi mở trang
+  checkSecurity();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quản lý học viên</title>
