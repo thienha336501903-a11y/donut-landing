@@ -67,7 +67,14 @@
 
   .poster-img{
     width:100%;
-    aspect-ratio:9/16;
+    aspect-ratio:9/11;
+    object-fit:contain;
+    background:#fffaf0;
+  }
+
+  .feature-poster-img{
+    width:100%;
+    aspect-ratio:9/11;
     object-fit:contain;
     background:#fffaf0;
   }
@@ -155,9 +162,15 @@
             <p class="text-xs font-black uppercase tracking-[.2em] text-white/58">Special Course Issue</p>
           </div>
 
-          <h1 class="display masthead text-[82px] sm:text-[120px] lg:text-[156px] font-black text-[#fbf3e5] mt-8">
-            FOOD<br>CLASS
-          </h1>
+          <div class="mt-7 grid lg:grid-cols-[.72fr_.28fr] gap-5 items-stretch">
+            <div class="bg-[#fbf3e5] p-3 sm:p-4 shadow-[0_26px_58px_rgba(0,0,0,.32)] border border-white/15">
+              <img id="courseImageHero" src="" alt="Ảnh khóa học" loading="eager" decoding="async" fetchpriority="high" class="feature-poster-img">
+            </div>
+            <div class="hidden lg:flex flex-col justify-between border-l border-white/20 pl-5">
+              <p class="display text-6xl font-black leading-none text-[#d49a3d]">01</p>
+              <p class="section-kicker text-white/58 [writing-mode:vertical-rl] rotate-180">Magazine Cover</p>
+            </div>
+          </div>
 
           <div class="grid sm:grid-cols-[1fr_auto] gap-5 items-end mt-8">
             <div>
@@ -228,10 +241,6 @@
           <p class="mt-4 text-[#4b4034]/78 text-base sm:text-lg font-bold leading-relaxed">
             Chuyển khoản đúng thông tin, quét QR nếu muốn nhanh hơn, sau đó upload bill ở phần đăng ký.
           </p>
-
-          <a href="#register" class="mag-btn mt-7 inline-flex w-full justify-center rounded-none px-7 py-4 text-sm font-black uppercase tracking-[.18em] transition">
-            Up bill CK thành công
-          </a>
         </div>
 
         <div class="grid xl:grid-cols-[1.05fr_.95fr] gap-5 lg:gap-7 items-start">
@@ -269,6 +278,10 @@
               </div>
               <button onclick="copyValue('transferNote')" class="shrink-0 bg-[#d49a3d] text-[#12100d] px-4 py-2 text-xs font-black uppercase tracking-wider hover:brightness-105 transition">Copy</button>
             </div>
+
+            <a href="#register" class="block bg-[#b8452d] text-[#fffaf0] px-5 py-4 text-center font-black uppercase tracking-[.16em] hover:brightness-105 transition shadow-[0_16px_34px_rgba(184,69,45,.24)]">
+                BẤM ĐỂ Up bill CK thành công
+            </a>
           </div>
 
           <div class="bg-[#1d1a16] text-[#fbf3e5] p-5 sm:p-6">
@@ -418,6 +431,8 @@ async function loadConfig() {
 
     document.getElementById('courseName').innerText = window.currentCourseName;
     document.getElementById('courseImage').src = data.imageUrl || '';
+    const courseImageHero = document.getElementById('courseImageHero');
+    if (courseImageHero) courseImageHero.src = data.imageUrl || '';
 
     document.getElementById('bankName').innerText = data.bankName || '';
     document.getElementById('bankAccount').innerText = data.bankAccount || '';
