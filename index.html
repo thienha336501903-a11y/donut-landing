@@ -99,11 +99,8 @@
 
 <body id="pageBody">
 <div class="page">
-  <div class="fixed top-4 left-4 right-4 z-40 flex items-center justify-between pointer-events-none">
-    <a href="#admission" class="pointer-events-auto text-[10px] sm:text-xs tracking-[.28em] uppercase text-[#f5efe6]/80 border border-[#c9a96e]/30 rounded-full px-3 sm:px-4 py-2 bg-black/35 backdrop-blur-md">Private Academy</a>
-    <button type="button" onclick="toggleDarkMode()" class="pointer-events-auto px-3 sm:px-4 py-2 rounded-full bg-[#f5efe6]/10 border border-white/10 text-[#f5efe6]/85 text-xs font-bold hover:bg-[#f5efe6]/15 transition">
-      Chế độ xem
-    </button>
+  <div class="fixed top-4 left-4 right-4 z-40 flex items-center justify-start pointer-events-none">
+    <a href="#register" class="pointer-events-auto text-[10px] sm:text-xs tracking-[.28em] uppercase text-[#f5efe6]/80 border border-[#c9a96e]/30 rounded-full px-3 sm:px-4 py-2 bg-black/35 backdrop-blur-md">Private Academy</a>
   </div>
 
   <header class="hero-cover relative min-h-[100svh] overflow-hidden flex items-end">
@@ -119,7 +116,7 @@
             Một trải nghiệm học nghề cao cấp dành cho người muốn làm sản phẩm chỉn chu, bán được và xây dựng hình ảnh chuyên nghiệp ngay từ khóa đầu tiên.
           </p>
           <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="#admission" class="champagne-btn rounded-full px-7 py-4 text-sm font-black tracking-wide text-center uppercase transition">Tham gia khóa học</a>
+            <a href="#register" class="champagne-btn rounded-full px-7 py-4 text-sm font-black tracking-wide text-center uppercase transition">Tham gia khóa học</a>
             <button type="button" onclick="openPaymentModal()" class="outline-btn rounded-full px-7 py-4 text-sm font-bold tracking-wide text-center uppercase text-[#f5efe6] hover:bg-white/10 transition">Xem học phí</button>
           </div>
         </div>
@@ -154,23 +151,6 @@
       </div>
     </section>
 
-    <section class="px-5 sm:px-8 lg:px-12 py-16 sm:py-24">
-      <div class="max-w-7xl mx-auto grid lg:grid-cols-[.8fr_1.2fr] gap-12 lg:gap-20 items-start">
-        <div class="lg:sticky lg:top-24">
-          <p class="text-[#c9a96e] text-xs font-black tracking-[.32em] uppercase mb-4">Curriculum</p>
-          <h2 class="serif text-4xl sm:text-6xl font-black leading-tight">Một lộ trình học nhìn như lớp nghề cao cấp.</h2>
-          <p class="mt-5 text-[#f5efe6]/62 leading-relaxed">Bố cục học được trình bày như lộ trình tuyển sinh, không phải một trang bán hàng thông thường.</p>
-        </div>
-
-        <div class="grid sm:grid-cols-2 gap-px bg-[#c9a96e]/18 border border-[#c9a96e]/18">
-          <article class="bg-[#0d0d0d] p-7 sm:p-8 min-h-[190px]"><p class="text-[#c9a96e] font-black mb-10">01</p><h3 class="serif text-2xl font-bold">Công thức nền</h3><p class="text-[#f5efe6]/55 text-sm mt-3 leading-relaxed">Nắm cấu trúc công thức và cách làm ổn định để học viên có thể thực hành.</p></article>
-          <article class="bg-[#0d0d0d] p-7 sm:p-8 min-h-[190px]"><p class="text-[#c9a96e] font-black mb-10">02</p><h3 class="serif text-2xl font-bold">Kỹ thuật thao tác</h3><p class="text-[#f5efe6]/55 text-sm mt-3 leading-relaxed">Tập trung vào dấu hiệu đạt, lỗi thường gặp và cách xử lý trong quá trình làm.</p></article>
-          <article class="bg-[#0d0d0d] p-7 sm:p-8 min-h-[190px]"><p class="text-[#c9a96e] font-black mb-10">03</p><h3 class="serif text-2xl font-bold">Đóng gói & bảo quản</h3><p class="text-[#f5efe6]/55 text-sm mt-3 leading-relaxed">Hướng tới sản phẩm có thể bán, giao khách và giữ hình ảnh chuyên nghiệp.</p></article>
-          <article class="bg-[#0d0d0d] p-7 sm:p-8 min-h-[190px]"><p class="text-[#c9a96e] font-black mb-10">04</p><h3 class="serif text-2xl font-bold">Ứng dụng kinh doanh</h3><p class="text-[#f5efe6]/55 text-sm mt-3 leading-relaxed">Phù hợp người học nghề, chủ quán nhỏ hoặc người muốn mở thêm dòng sản phẩm.</p></article>
-        </div>
-      </div>
-    </section>
-
     <section class="px-5 sm:px-8 lg:px-12 py-8 sm:py-14">
       <div class="max-w-7xl mx-auto grid lg:grid-cols-[1.15fr_.85fr] gap-6 items-stretch">
         <div class="relative overflow-hidden rounded-[30px] sm:rounded-[34px] min-h-[420px] sm:min-h-[520px] border border-[#c9a96e]/18 bg-[#141414]">
@@ -186,46 +166,32 @@
             <p class="text-xs font-black tracking-[.3em] uppercase text-[#7c5c25] mb-5">Tuition</p>
             <h2 class="serif text-4xl sm:text-5xl font-black leading-tight">Học phí khóa học</h2>
             <p id="price" class="mt-7 text-4xl sm:text-5xl font-black text-[#8a672e]">Đang tải...</p>
-            <div class="mt-7 space-y-3 text-sm font-bold">
-              <p>✓ Video bài học và tài liệu Drive</p>
-              <p>✓ Công thức thực hành theo khóa</p>
-              <p>✓ Gửi Gmail để được cấp quyền học</p>
-              <p>✓ Xác nhận thanh toán trong vòng 24H</p>
-            </div>
+          <div class="mt-7 space-y-3 text-sm font-bold">
+  <p>✓ Truy cập không giới hạn vào toàn bộ nội dung đào tạo của khóa học</p>
+  <p>✓ Nhận đầy đủ công thức, tài liệu và hướng dẫn thực hành chi tiết</p>
+  <p>✓ Quyền truy cập khóa học được cấp trực tiếp qua Gmail đăng ký</p>
+  <p>✓ Hoàn tất xác nhận thanh toán và cấp quyền truy cập trong vòng 24 giờ</p>
+</div>
           </div>
           <button type="button" onclick="openPaymentModal()" class="mt-8 w-full rounded-full bg-[#111] text-[#f5efe6] py-4 font-black uppercase tracking-wide hover:bg-[#2a2115] transition">Mở thông tin thanh toán</button>
         </div>
       </div>
     </section>
 
-    <section id="admission" class="px-5 sm:px-8 lg:px-12 py-16 sm:py-24">
-      <div class="max-w-7xl mx-auto">
-        <div class="max-w-3xl mb-12">
-          <p class="text-[#c9a96e] text-xs font-black tracking-[.32em] uppercase mb-4">Admission Form</p>
-          <h2 class="serif text-4xl sm:text-6xl font-black leading-tight">Hoàn tất đăng ký theo 3 bước.</h2>
-        </div>
-
-        <div class="grid lg:grid-cols-[.88fr_1.12fr] gap-6 lg:gap-8">
-          <aside class="lux-card rounded-[30px] sm:rounded-[34px] p-7 sm:p-8 h-fit lg:sticky lg:top-24">
-            <div class="space-y-8">
-              <div class="flex gap-5">
-                <div class="w-12 h-12 rounded-full cream-panel flex items-center justify-center font-black shrink-0">1</div>
-                <div><h3 class="text-xl font-black">Mở thông tin chuyển khoản</h3><p class="text-[#f5efe6]/58 text-sm mt-1">Bấm nút bên dưới để xem ngân hàng, số tài khoản, QR và nội dung CK.</p></div>
-              </div>
-              <div class="flex gap-5">
-                <div class="w-12 h-12 rounded-full cream-panel flex items-center justify-center font-black shrink-0">2</div>
-                <div><h3 class="text-xl font-black">Chụp lại bill</h3><p class="text-[#f5efe6]/58 text-sm mt-1">Ảnh bill nên rõ số tiền, thời gian và nội dung chuyển khoản.</p></div>
-              </div>
-              <div class="flex gap-5">
-                <div class="w-12 h-12 rounded-full cream-panel flex items-center justify-center font-black shrink-0">3</div>
-                <div><h3 class="text-xl font-black">Gửi Gmail nhận khóa</h3><p class="text-[#f5efe6]/58 text-sm mt-1">Admin kiểm tra và cấp quyền truy cập thư mục khóa học trong vòng 24H.</p></div>
-              </div>
+    <section id="register" class="px-5 sm:px-8 lg:px-12 py-14 sm:py-20">
+      <div class="max-w-5xl mx-auto">
+        <section class="cream-panel rounded-[30px] sm:rounded-[34px] p-5 sm:p-8 lg:p-10">
+          <div class="grid lg:grid-cols-[.82fr_1.18fr] gap-8 lg:gap-10 items-start">
+            <div>
+              <p class="text-xs font-black tracking-[.3em] uppercase text-[#7c5c25] mb-4">Registration</p>
+              <h2 class="serif text-4xl sm:text-5xl font-black leading-tight">Gửi thông tin đăng ký</h2>
+              <p class="mt-4 text-[#6f604b] leading-relaxed">
+                Sau khi chuyển khoản, nhập Gmail nhận khóa học và upload ảnh bill để admin kiểm tra trong vòng 24H.
+              </p>
+              <button type="button" onclick="openPaymentModal()" class="mt-6 w-full sm:w-auto rounded-full bg-[#111] text-[#f5efe6] px-7 py-3.5 font-black uppercase tracking-wide hover:bg-[#2a2115] transition">
+                Xem thanh toán / QR
+              </button>
             </div>
-            <button type="button" onclick="openPaymentModal()" class="champagne-btn mt-9 w-full rounded-full py-4 font-black uppercase tracking-wide transition">Xem thanh toán / QR</button>
-          </aside>
-
-          <section class="cream-panel rounded-[30px] sm:rounded-[34px] p-5 sm:p-8 lg:p-10">
-            <h2 class="serif text-3xl sm:text-5xl font-black mb-7">Gửi hồ sơ đăng ký</h2>
 
             <form id="regForm" class="space-y-6">
               <div>
@@ -261,11 +227,11 @@
               </button>
 
               <p class="text-sm text-[#6f604b] text-center leading-relaxed">
-                Sau khi xác nhận thanh toán, Gmail của bạn sẽ được cấp quyền truy cập thư mục khóa học trong vòng 24H.
+                Gmail của bạn sẽ được cấp quyền truy cập thư mục khóa học sau khi xác nhận thanh toán.
               </p>
             </form>
-          </section>
-        </div>
+          </div>
+        </section>
       </div>
     </section>
   </main>
@@ -331,7 +297,7 @@
                 Tải mã QR về máy
               </button>
             </div>
-            <a href="#admission" onclick="closePaymentModal()" class="champagne-btn mt-5 w-full text-center rounded-full py-4 font-black uppercase tracking-wide transition">Tôi đã chuyển khoản, gửi bill</a>
+            <a href="#register" onclick="closePaymentModal()" class="champagne-btn mt-5 w-full text-center rounded-full py-4 font-black uppercase tracking-wide transition">Tôi đã chuyển khoản, gửi bill</a>
           </div>
         </div>
       </div>
