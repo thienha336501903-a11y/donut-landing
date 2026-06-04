@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Đăng ký khóa học</title>
-<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=15beEU1j_9UbhBONkL2URQYygGxnxRJRxzlwu7sWMbW0ppJ47ikBKpHehuz8UjqtEKtcrGO83mpBWQsZJl-JtgjYf4wQqUBdF-4xw0mqjckof3JynhC7htgdPFgt-O9P5ECjDWJZIj7Snope_qLkBo_bQBgn8-Qxp9zSBlFUYcWmdyjwmafYO8sdsQexuhrVDqex58vBldFIO2JU6FSCf9JerpJIfehp3YeD1LGk3udnm_5AwckE1D9urkcoD4HninnHPylXFvomclWGkf6QMD1iGkLNLHLXpwCeQLS77K74tWpK0-qau3LmGMKQMT-0d-alWNWMfOcoCDhg4m8fKQ" charset="UTF-8"></script><script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://cdn.tailwindcss.com">
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=AeDPI-SjGocInj6Jc98l9HShB4vQxaFj4qUK54DJY2esY64N87277BICX0F6PmAKTopwKlAH-YmnZzJ6z9YQ1e7EWJ6rwuLe3ukNSmL5iLL9H0mhMIXvmylqyhcX51kUK2mHFjV_2Qef3m-U7dxKtSZKnE5uMzt4Zhyzp5QGtR-vgXO3Vh1z6o_jVnNtowWbBKuj4-JDY87SSmgc081LyhoZTKFzZlM2Vl8e1TN4a2A8rxM43SA-W8wxiQkCuV-MVDEoeR-qPEen6u1HcbO4p6I-nv8YgXPo19AMl8PP0k5ArlJJIpXc1jcariimVS1B" charset="UTF-8"></script><script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = { darkMode: 'class' };
 </script>
@@ -61,7 +62,7 @@
 
         <div class="p-3 sm:p-4 md:p-6 order-2 flex items-center justify-center bg-white/25 dark:bg-black/10">
           <div class="w-full max-w-[390px] md:max-w-none md:h-full rounded-[24px] md:rounded-3xl bg-white dark:bg-zinc-900 shadow-lg border border-black/5 dark:border-white/10 overflow-hidden">
-            <img id="courseImage" src="" alt="Ảnh khóa học" class="w-full aspect-[9/16] md:aspect-auto md:h-full max-h-[72vh] md:max-h-none object-contain md:object-cover bg-white dark:bg-zinc-900">
+            <img id="courseImage" src="" alt="Ảnh khóa học" loading="eager" decoding="async" fetchpriority="high" class="w-full aspect-[9/16] md:aspect-auto md:h-full max-h-[72vh] md:max-h-none object-contain md:object-cover bg-white dark:bg-zinc-900">
           </div>
         </div>
 
@@ -116,7 +117,7 @@
 
         <div id="qrBox" class="hidden text-center">
           <div class="bg-gray-50 dark:bg-zinc-800 rounded-3xl p-4 border border-black/5 dark:border-white/10">
-            <img id="qrImage" src="" alt="QR chuyển khoản" class="mx-auto w-72 max-w-full rounded-2xl bg-white p-3 shadow">
+            <img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-72 max-w-full rounded-2xl bg-white p-3 shadow">
           </div>
           <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">Quét mã QR bằng app ngân hàng để chuyển khoản nhanh.</p>
         </div>
@@ -216,11 +217,12 @@ function setProgress(percent, text) {
 
 async function loadConfig() {
   try {
-    const res = await fetch('/api/config');
+    const res = await fetch('/api/config', { cache: 'no-store' });
     const data = await res.json();
 
+    const courseImage = document.getElementById('courseImage');
     document.getElementById('courseName').innerText = data.courseName || 'KHÓA HỌC DONUT NHIỀU VỊ AN';
-    document.getElementById('courseImage').src = data.imageUrl || 'https://images.unsplash.com/photo-1551024601-bec78aea704b';
+    courseImage.src = data.imageUrl || 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=900&auto=format&fit=crop&q=75';
     document.getElementById('bankName').innerText = data.bankName || 'MB BANK';
     document.getElementById('bankAccount').innerText = data.bankAccount || '0987654321';
     document.getElementById('bankOwner').innerText = data.bankOwner || 'NGUYỄN VĂN A';
