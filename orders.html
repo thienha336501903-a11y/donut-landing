@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản lý học viên</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+
+<div class="max-w-6xl mx-auto p-4">
+
+  <div class="bg-white rounded-2xl shadow p-5 mb-5">
+    <h1 class="text-3xl font-black text-pink-600">
+      Quản lý học viên chờ duyệt
+    </h1>
+    <p class="text-gray-500 mt-2">
+      Xem học viên theo từng khóa học, mở bill và lọc trạng thái.
+    </p>
+  </div>
+
+  <div id="summaryBox" class="grid md:grid-cols-3 gap-4 mb-5">
+    Đang tải thống kê...
+  </div>
+
+  <div class="bg-white rounded-2xl shadow p-5 mb-5">
+    <div class="grid md:grid-cols-3 gap-3">
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Tìm Gmail hoặc khóa học..."
+        class="border rounded-xl p-3 outline-none focus:ring-2 focus:ring-pink-400"
+      >
+
+      <select
+        id="statusFilter"
+        class="border rounded-xl p-3 outline-none focus:ring-2 focus:ring-pink-400"
+      >
+        <option value="">Tất cả trạng thái</option>
+        <option value="Chờ duyệt">Chờ duyệt</option>
+        <option value="Đã duyệt">Đã duyệt</option>
+        <option value="Từ chối">Từ chối</option>
+      </select>
+
+      <button
+        onclick="clearFilter()"
+        class="bg-gray-900 text-white rounded-xl p-3 font-bold"
+      >
+        Xóa lọc
+      </button>
+    </div>
+  </div>
+
+  <div id="orderList" class="bg-white rounded-2xl shadow overflow-hidden">
+    Đang tải danh sách...
+  </div>
+
+</div>
+
+<script>
+let allOrders = [];
+let selectedCourse = "";
+
+function getValue(order, keys) {
+  for (const key of keys) {
+    if (order[key]) return order[key];
+  }
+  return "";
+}
+
+function renderSummary() {
+  const box = document.getElementById("summaryBox");
+
+  const pendingOrders = allOrders.filter(order => {
+    const status = getValue(order, ["Trạng thái", "status"]);
+    return status === "Chờ duyệt";
+  });
+
+  const groups = {};
+
+  pendingOrders.forEach(order => {
+    const course = getValue(order, ["Course", "course"]) || "Không rõ khóa";
+    const courseName = getValue(order, ["Tên khóa học", "courseName"]) || course;
+
+    if (!groups[course]) {
+      groups[course] = {
+        course,
+        courseName,
+        count: 0
+      };
+    }
+
+    groups[course].count++;
+  });
+
+  const items = Object.values(groups);
+
+  if (items.length === 0) {
+    box.innerHTML = `
+      <div class="bg-white rounded-2xl shadow p-5 md:col-span-3">
+        Không có học viên chờ duyệt.
+      </div>
+    `;
+    return;
+  }
+
+  box.innerHTML = items.map(item => `
+    <button
+      onclick="selectCourse('${item.course}')"
+      class="bg-white rounded-2xl shadow p-5 text-left hover:ring-2 hover:ring-pink-400"
+    >
+      <h2 class="font-black text-xl text-pink-600">${item.courseName}</h2>
+      <p class="text-gray-600 mt-2">${item.count} học viên chờ duyệt</p>
+      <p class="text-xs text-gray-400 mt-2">${item.course}</p>
+    </button>
+  `).join("");
+}
+
+function selectCourse(course) {
+  selectedCourse = course;
+  renderOrders();
+}
+
+function clearFilter() {
+  selectedCourse = "";
+  document.getElementById("searchInput").value = "";
+  document.getElementById("statusFilter").value = "";
+  renderOrders();
+}
+
+function renderOrders() {
+  const box = document.getElementById("orderList");
+  const keyword = document.getElementById("searchInput").value.toLowerCase().trim();
+  const statusFilter = document.getElementById("statusFilter").value;
+
+  let orders = [...allOrders];
+
+  if (selectedCourse) {
+    orders = orders.filter(order => {
+      const course = getValue(order, ["Course", "course"]);
+      return course === selectedCourse;
+    });
+  }
+
+  if (statusFilter) {
+    orders = orders.filter(order => {
+      const status = getValue(order, ["Trạng thái", "status"]);
+      return status === statusFilter;
+    });
+  }
+
+  if (keyword) {
+    orders = orders.filter(order => {
+      const text = [
+        getValue(order, ["Gmail", "gmail"]),
+        getValue(order, ["Course", "course"]),
+        getValue(order, ["Tên khóa học", "courseName"]),
+        getValue(order, ["Trạng thái", "status"])
+      ].join(" ").toLowerCase();
+
+      return text.includes(keyword);
+    });
+  }
+
+  if (orders.length === 0) {
+    box.innerHTML = `
+      <div class="p-6 text-center text-gray-500">
+        Không có đơn phù hợp.
+      </div>
+    `;
+    return;
+  }
+
+  box.innerHTML = `
+    <div class="p-4 border-b bg-gray-50 font-bold">
+      ${selectedCourse ? "Đang xem khóa: " + selectedCourse : "Tất cả đơn"} — ${orders.length} đơn
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="p-3 text-left">Thời gian</th>
+            <th class="p-3 text-left">Khóa</th>
+            <th class="p-3 text-left">Gmail</th>
+            <th class="p-3 text-left">Bill</th>
+            <th class="p-3 text-left">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${orders.map(order => {
+            const time = getValue(order, ["Thời gian", "time"]);
+            const course = getValue(order, ["Course", "course"]);
+            const courseName = getValue(order, ["Tên khóa học", "courseName"]);
+            const gmail = getValue(order, ["Gmail", "gmail"]);
+            const bill = getValue(order, ["Link bill", "billLink"]);
+            const status = getValue(order, ["Trạng thái", "status"]);
+
+            return `
+              <tr class="border-t">
+                <td class="p-3 whitespace-nowrap">${time}</td>
+                <td class="p-3">
+                  <div class="font-bold">${courseName || course}</div>
+                  <div class="text-xs text-gray-400">${course}</div>
+                </td>
+                <td class="p-3">${gmail}</td>
+                <td class="p-3">
+                  ${bill ? `
+                    <a
+                      href="${bill}"
+                      target="_blank"
+                      class="text-pink-600 font-bold"
+                    >
+                      Xem bill
+                    </a>
+                  ` : ""}
+                </td>
+                <td class="p-3">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold ${
+                    status === "Chờ duyệt"
+                      ? "bg-yellow-100 text-yellow-700"
+                      : status === "Đã duyệt"
+                      ? "bg-green-100 text-green-700"
+                      : "bg-gray-100 text-gray-700"
+                  }">
+                    ${status}
+                  </span>
+                </td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+async function loadOrders() {
+  try {
+    const res = await fetch("/api/orders", {
+      cache: "no-store"
+    });
+
+    allOrders = await res.json();
+
+    renderSummary();
+    renderOrders();
+
+    document.getElementById("searchInput")
+      .addEventListener("input", renderOrders);
+
+    document.getElementById("statusFilter")
+      .addEventListener("change", renderOrders);
+
+  } catch (err) {
+    document.getElementById("orderList").innerHTML =
+      '<div class="p-6 text-red-600">Không tải được danh sách đơn.</div>';
+  }
+}
+
+loadOrders();
+</script>
+
+</body>
+</html>
