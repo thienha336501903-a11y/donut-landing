@@ -150,7 +150,7 @@
 
   <!-- MAGAZINE COVER -->
   <section class="min-h-screen px-4 sm:px-6 lg:px-10 py-5 sm:py-8">
-    <div class="max-w-7xl mx-auto grid lg:grid-cols-[1.05fr_.95fr] gap-5 lg:gap-8 items-stretch min-h-[calc(100vh-40px)]">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 items-stretch min-h-[calc(100vh-40px)]">
 
       <div class="ink-panel rounded-[32px] sm:rounded-[42px] p-5 sm:p-8 lg:p-10 mag-shadow flex flex-col justify-between overflow-hidden relative">
         <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#b8452d]/20"></div>
@@ -174,8 +174,8 @@
 
           <div class="grid sm:grid-cols-[1fr_auto] gap-5 items-end mt-8">
             <div>
-              <p class="section-kicker text-[#d49a3d] mb-3">Tên khóa học</p>
-              <h2 id="courseName" class="display text-5xl sm:text-6xl lg:text-7xl font-black leading-[.92] text-white">
+              <p class="section-kicker text-[#d49a3d] mb-3">Khóa học online</p>
+              <h2 id="courseName" class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-white uppercase">
                 Đang tải khóa học...
               </h2>
             </div>
@@ -198,33 +198,6 @@
           </a>
         </div>
       </div>
-
-      <div class="paper-panel rounded-[32px] sm:rounded-[42px] p-4 sm:p-6 mag-shadow flex flex-col">
-        <div class="flex items-center justify-between gap-4 mb-4">
-          <p class="section-kicker text-[#b8452d]">Cover Story</p>
-          <p class="text-xs font-black uppercase tracking-[.22em] text-black/45">9:16 Poster</p>
-        </div>
-
-        <div class="cover-frame rounded-[26px] p-3 sm:p-4 flex-1 flex items-center justify-center">
-          <img id="courseImage" src="" alt="Ảnh khóa học" loading="eager" decoding="async" fetchpriority="high" class="poster-img rounded-[18px]">
-        </div>
-
-        <div class="grid grid-cols-3 gap-3 mt-4">
-          <div class="olive-panel rounded-[18px] p-3 text-center">
-            <p class="display text-2xl">01</p>
-            <p class="text-[11px] font-black uppercase tracking-wider">Course</p>
-          </div>
-          <div class="tomato-panel rounded-[18px] p-3 text-center">
-            <p class="display text-2xl">24H</p>
-            <p class="text-[11px] font-black uppercase tracking-wider">Access</p>
-          </div>
-          <div class="ink-panel rounded-[18px] p-3 text-center">
-            <p class="display text-2xl">QR</p>
-            <p class="text-[11px] font-black uppercase tracking-wider">Payment</p>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -430,7 +403,10 @@ async function loadConfig() {
     window.currentCourseName = data.courseName || '';
 
     document.getElementById('courseName').innerText = window.currentCourseName;
-    document.getElementById('courseImage').src = data.imageUrl || '';
+
+    const courseImage = document.getElementById('courseImage');
+    if (courseImage) courseImage.src = data.imageUrl || '';
+
     const courseImageHero = document.getElementById('courseImageHero');
     if (courseImageHero) courseImageHero.src = data.imageUrl || '';
 
