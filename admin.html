@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản trị Landing Page</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+
+<div class="max-w-5xl mx-auto p-4">
+
+  <div class="bg-white rounded-2xl shadow p-5 mb-5">
+    <h1 class="text-3xl font-black text-pink-600">
+      Quản trị Landing Page khóa học
+    </h1>
+    <p class="text-gray-500 mt-2">
+      Chọn khóa học, mở landing page hoặc copy link gửi khách.
+    </p>
+  </div>
+
+  <div id="courseList" class="grid md:grid-cols-2 gap-4">
+    Đang tải danh sách khóa học...
+  </div>
+
+</div>
+
+<div
+id="toast"
+class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white px-5 py-3 rounded-full opacity-0 transition"
+>
+Đã copy
+</div>
+
+<script>
+function showToast(text) {
+  const toast = document.getElementById('toast');
+  toast.innerText = text;
+  toast.classList.remove('opacity-0');
+
+  setTimeout(() => {
+    toast.classList.add('opacity-0');
+  }, 2000);
+}
+
+function copyLink(link) {
+  navigator.clipboard.writeText(link).then(() => {
+    showToast('Đã copy link');
+  });
+}
+
+async function loadCourses() {
+  const box = document.getElementById('courseList');
+
+  try {
+    const res = await fetch('/api/courses', { cache: 'no-store' });
+    const courses = await res.json();
+
+    if (!Array.isArray(courses) || courses.length === 0) {
+      box.innerHTML = '<p>Chưa có khóa học nào trong tab Courses.</p>';
+      return;
+    }
+
+    const origin = window.location.origin;
+
+    box.innerHTML = courses.map(course => {
+      const slug = course.slug || '';
+      const name = course.courseName || slug;
+      const price = course.price || '';
+      const image = course.imageUrl || '';
+      const link = `${origin}/?course=${encodeURIComponent(slug)}`;
+
+      return `
+        <div class="bg-white rounded-2xl shadow border overflow-hidden">
+          ${image ? `
+            <img src="${image}" class="w-full h-56 object-cover bg-gray-100">
+          ` : ''}
+
+          <div class="p-5">
+            <h2 class="text-xl font-black mb-2">${name}</h2>
+            <p class="text-pink-600 font-bold mb-3">${price}</p>
+
+            <div class="bg-gray-50 rounded-xl p-3 text-sm break-all mb-4">
+              ${link}
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <a
+                href="${link}"
+                target="_blank"
+                class="text-center bg-pink-600 text-white py-3 rounded-xl font-bold"
+              >
+                Mở page
+              </a>
+
+              <button
+                onclick="copyLink('${link}')"
+                class="bg-gray-900 text-white py-3 rounded-xl font-bold"
+              >
+                Copy link
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+  } catch (err) {
+    box.innerHTML = '<p class="text-red-600">Không tải được danh sách khóa học.</p>';
+  }
+}
+
+loadCourses();
+</script>
+
+</body>
+</html>
