@@ -18,6 +18,16 @@
     <p class="text-gray-500 mt-2">
       Chọn khóa học, mở landing page hoặc copy link gửi khách.
     </p>
+
+    <div class="mt-5">
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Tìm khóa học... ví dụ: donut, chè, bánh mì"
+        class="w-full border border-gray-300 rounded-xl p-4 text-lg outline-none focus:ring-2 focus:ring-pink-400"
+      >
+      <p id="countText" class="text-sm text-gray-500 mt-2"></p>
+    </div>
   </div>
 
   <div id="courseList" class="grid md:grid-cols-2 gap-4">
@@ -34,6 +44,8 @@ class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white px-5 py-3 ro
 </div>
 
 <script>
+let allCourses = [];
+
 function showToast(text) {
   const toast = document.getElementById('toast');
   toast.innerText = text;
@@ -50,6 +62,96 @@ function copyLink(link) {
   });
 }
 
+function renderCourses(courses) {
+  const box = document.getElementById('courseList');
+  const countText = document.getElementById('countText');
+  const origin = window.location.origin;
+
+  countText.innerText = `Đang hiển thị ${courses.length}/${allCourses.length} khóa học`;
+
+  if (!Array.isArray(courses) || courses.length === 0) {
+    box.innerHTML = `
+      <div class="bg-white rounded-2xl shadow border p-6 text-center text-gray-500 md:col-span-2">
+        Không tìm thấy khóa học phù hợp.
+      </div>
+    `;
+    return;
+  }
+
+  box.innerHTML = courses.map(course => {
+    const slug = course.slug || '';
+    const name = course.courseName || slug;
+    const price = course.price || '';
+    const image = course.imageUrl || '';
+    const link = `${origin}/?course=${encodeURIComponent(slug)}`;
+
+    return `
+      <div class="bg-white rounded-2xl shadow border overflow-hidden">
+        ${image ? `
+          <img src="${image}" class="w-full h-56 object-cover bg-gray-100">
+        ` : ''}
+
+        <div class="p-5">
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <h2 class="text-xl font-black">${name}</h2>
+            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full shrink-0">
+              ${slug}
+            </span>
+          </div>
+
+          <p class="text-pink-600 font-bold mb-3">${price}</p>
+
+          <div class="bg-gray-50 rounded-xl p-3 text-sm break-all mb-4">
+            ${link}
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <a
+              href="${link}"
+              target="_blank"
+              class="text-center bg-pink-600 text-white py-3 rounded-xl font-bold"
+            >
+              Mở page
+            </a>
+
+            <button
+              onclick="copyLink('${link}')"
+              class="bg-gray-900 text-white py-3 rounded-xl font-bold"
+            >
+              Copy link
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function searchCourses() {
+  const keyword = document.getElementById('searchInput').value
+    .toLowerCase()
+    .trim();
+
+  if (!keyword) {
+    renderCourses(allCourses);
+    return;
+  }
+
+  const filtered = allCourses.filter(course => {
+    const text = [
+      course.slug,
+      course.courseName,
+      course.price,
+      course.bankName,
+      course.transferNote
+    ].join(' ').toLowerCase();
+
+    return text.includes(keyword);
+  });
+
+  renderCourses(filtered);
+}
+
 async function loadCourses() {
   const box = document.getElementById('courseList');
 
@@ -62,49 +164,12 @@ async function loadCourses() {
       return;
     }
 
-    const origin = window.location.origin;
+    allCourses = courses;
 
-    box.innerHTML = courses.map(course => {
-      const slug = course.slug || '';
-      const name = course.courseName || slug;
-      const price = course.price || '';
-      const image = course.imageUrl || '';
-      const link = `${origin}/?course=${encodeURIComponent(slug)}`;
+    renderCourses(allCourses);
 
-      return `
-        <div class="bg-white rounded-2xl shadow border overflow-hidden">
-          ${image ? `
-            <img src="${image}" class="w-full h-56 object-cover bg-gray-100">
-          ` : ''}
-
-          <div class="p-5">
-            <h2 class="text-xl font-black mb-2">${name}</h2>
-            <p class="text-pink-600 font-bold mb-3">${price}</p>
-
-            <div class="bg-gray-50 rounded-xl p-3 text-sm break-all mb-4">
-              ${link}
-            </div>
-
-            <div class="grid grid-cols-2 gap-3">
-              <a
-                href="${link}"
-                target="_blank"
-                class="text-center bg-pink-600 text-white py-3 rounded-xl font-bold"
-              >
-                Mở page
-              </a>
-
-              <button
-                onclick="copyLink('${link}')"
-                class="bg-gray-900 text-white py-3 rounded-xl font-bold"
-              >
-                Copy link
-              </button>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join('');
+    document.getElementById('searchInput')
+      .addEventListener('input', searchCourses);
 
   } catch (err) {
     box.innerHTML = '<p class="text-red-600">Không tải được danh sách khóa học.</p>';
