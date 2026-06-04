@@ -70,72 +70,69 @@
     </section>
 
     <section class="grid md:grid-cols-2 gap-4 md:gap-5 mt-5 md:mt-6">
-      <div class="bg-white dark:bg-zinc-900 rounded-[28px] md:rounded-3xl shadow-xl border border-black/5 dark:border-white/10 p-5 md:p-6">
-        <h2 class="text-2xl font-black mb-4">💳 Thông tin chuyển khoản</h2>
+      <div class="bg-white dark:bg-zinc-900 rounded-[28px] md:rounded-3xl shadow-xl border border-black/5 dark:border-white/10 p-5 md:p-6 flex flex-col justify-between">
+        <div>
+          <h2 class="text-2xl font-black mb-5">💳 Thông tin chuyển khoản</h2>
 
-        <div class="space-y-4 text-base sm:text-lg">
-          <div>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Ngân hàng</p>
-            <p class="font-bold" id="bankName">Đang tải...</p>
-          </div>
-
-          <div class="flex items-center justify-between gap-3">
-            <div class="min-w-0">
-              <p class="text-sm text-gray-500 dark:text-gray-400">Số tài khoản</p>
-              <p class="font-bold break-all" id="bankAccount">Đang tải...</p>
+          <div class="space-y-4 text-base sm:text-lg">
+            <div class="pb-1 border-b border-gray-100 dark:border-zinc-800">
+              <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-0.5">Ngân hàng</p>
+              <p class="font-bold text-gray-800 dark:text-zinc-200" id="bankName">Đang tải...</p>
             </div>
-            <button onclick="copyValue('bankAccount')" class="shrink-0 w-11 h-11 rounded-full bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 flex items-center justify-center text-lg" aria-label="Copy số tài khoản">📋</button>
-          </div>
 
-          <div>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Chủ tài khoản</p>
-            <p class="font-bold" id="bankOwner">Đang tải...</p>
-          </div>
-
-          <div class="flex items-center justify-between gap-3">
-            <div>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Số tiền</p>
-              <p class="font-bold text-pink-600 dark:text-pink-400" id="price">Đang tải...</p>
-            </div>
-            <button onclick="copyValue('price')" class="shrink-0 w-11 h-11 rounded-full bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 flex items-center justify-center text-lg" aria-label="Copy số tiền">📋</button>
-          </div>
-
-          <div class="bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-500/20 rounded-2xl p-4">
-            <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center justify-between gap-3 pb-1 border-b border-gray-100 dark:border-zinc-800">
               <div class="min-w-0">
-                <p class="text-sm text-red-500 font-semibold">Nội dung chuyển khoản</p>
-                <p class="font-black text-red-600 dark:text-red-300 break-words" id="transferNote">Đang tải...</p>
+                <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-0.5">Số tài khoản</p>
+                <p class="font-black text-xl tracking-wide text-gray-900 dark:text-white break-all" id="bankAccount">Đang tải...</p>
               </div>
-              <button onclick="copyValue('transferNote')" class="shrink-0 w-11 h-11 rounded-full bg-red-100 dark:bg-red-900/60 hover:bg-red-200 dark:hover:bg-red-900 flex items-center justify-center text-lg" aria-label="Copy nội dung chuyển khoản">📋</button>
+              <button onclick="copyValue('bankAccount')" class="shrink-0 px-3 py-1.5 text-xs font-bold uppercase rounded-lg bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-zinc-300 hover:bg-pink-50 hover:text-pink-600 dark:hover:bg-pink-950/40 dark:hover:text-pink-400 transition-colors">Sao chép</button>
+            </div>
+
+            <div class="pb-1 border-b border-gray-100 dark:border-zinc-800">
+              <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-0.5">Chủ tài khoản</p>
+              <p class="font-bold text-gray-800 dark:text-zinc-200" id="bankOwner">Đang tải...</p>
+            </div>
+
+            <div class="flex items-center justify-between gap-3 pb-1 border-b border-gray-100 dark:border-zinc-800">
+              <div class="min-w-0">
+                <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-0.5">Số tiền</p>
+                <p class="font-black text-xl text-pink-600 dark:text-pink-400" id="price">Đang tải...</p>
+              </div>
+              <button onclick="copyValue('price')" class="shrink-0 px-3 py-1.5 text-xs font-bold uppercase rounded-lg bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-zinc-300 hover:bg-pink-50 hover:text-pink-600 dark:hover:bg-pink-950/40 dark:hover:text-pink-400 transition-colors">Sao chép</button>
+            </div>
+
+            <div class="bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-500/10 rounded-2xl p-3.5 mt-2 flex items-center justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-xs font-bold uppercase tracking-wider text-red-500 dark:text-red-400 mb-0.5">Nội dung chuyển khoản</p>
+                <p class="font-black text-lg text-red-650 dark:text-red-300 break-words" id="transferNote">Đang tải...</p>
+              </div>
+              <button onclick="copyValue('transferNote')" class="shrink-0 px-3 py-1.5 text-xs font-bold uppercase rounded-lg bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/70 transition-colors">Sao chép</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="bg-white dark:bg-zinc-900 rounded-[28px] md:rounded-3xl shadow-xl border border-black/5 dark:border-white/10 p-5 md:p-6">
-        <h2 class="text-2xl font-black mb-4">📱 Quét QR chuyển khoản</h2>
+      <div class="bg-white dark:bg-zinc-900 rounded-[28px] md:rounded-3xl shadow-xl border border-black/5 dark:border-white/10 p-5 md:p-6 flex flex-col justify-between">
+        <div>
+          <h2 class="text-2xl font-black mb-4">📱 Quét QR chuyển khoản</h2>
 
-        <div id="qrBox" class="hidden text-center">
-          <div class="bg-gray-50 dark:bg-zinc-800 rounded-3xl p-4 border border-black/5 dark:border-white/10">
-            <img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-72 max-w-full rounded-2xl bg-white p-3 shadow">
+          <div id="qrBox" class="hidden text-center">
+            <div class="bg-gray-50 dark:bg-zinc-800 rounded-3xl p-4 border border-black/5 dark:border-white/10 inline-block w-full">
+              <img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-64 max-w-full rounded-2xl bg-white p-2.5 shadow-sm">
+            </div>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mt-2.5">Quét mã bằng app ngân hàng để tự động điền thông tin.</p>
           </div>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">Quét mã QR bằng app ngân hàng để chuyển khoản nhanh.</p>
+
+          <div id="qrEmpty" class="text-center text-gray-500 dark:text-gray-400 py-12">
+            Chưa có QR. Hãy thêm <b>qrImageUrl</b> trong tab Config.
+          </div>
         </div>
 
-        <div id="qrEmpty" class="text-center text-gray-500 dark:text-gray-400 py-12">
-          Chưa có QR. Hãy thêm <b>qrImageUrl</b> trong tab Config.
+        <div id="downloadQrBox" class="hidden mt-4">
+          <button onclick="downloadQR()" class="w-full py-2.5 px-4 rounded-xl border border-gray-200 dark:border-white/10 text-sm font-bold bg-gray-50 dark:bg-zinc-800 hover:bg-gray-100 dark:hover:bg-zinc-700 transition flex items-center justify-center gap-2">
+            📥 Tải mã QR về máy
+          </button>
         </div>
-      </div>
-    </section>
-
-    <section class="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-500/20 rounded-[28px] md:rounded-3xl p-5 mt-5 md:mt-6">
-      <h3 class="font-black text-blue-700 dark:text-blue-300 text-xl mb-3">✅ Quy trình đăng ký</h3>
-      <div class="grid sm:grid-cols-2 md:grid-cols-5 gap-3 text-sm">
-        <div class="bg-white dark:bg-zinc-900 rounded-2xl p-3 border border-black/5 dark:border-white/10">1. Quét QR / chuyển khoản</div>
-        <div class="bg-white dark:bg-zinc-900 rounded-2xl p-3 border border-black/5 dark:border-white/10">2. Ghi đúng nội dung CK</div>
-        <div class="bg-white dark:bg-zinc-900 rounded-2xl p-3 border border-black/5 dark:border-white/10">3. Nhập Gmail</div>
-        <div class="bg-white dark:bg-zinc-900 rounded-2xl p-3 border border-black/5 dark:border-white/10">4. Upload bill</div>
-        <div class="bg-white dark:bg-zinc-900 rounded-2xl p-3 border border-black/5 dark:border-white/10">5. Chờ cấp quyền học</div>
       </div>
     </section>
 
@@ -157,194 +154,4 @@
               <p class="font-bold">Bấm để chọn ảnh bill</p>
               <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Chỉ nhận JPG, PNG, WEBP. Tối đa 5MB.</p>
             </div>
-            <img id="billPreview" src="" alt="Xem trước bill" class="hidden mt-4 rounded-2xl border border-black/5 dark:border-white/10 max-h-[520px] w-full object-contain mx-auto shadow-lg bg-white">
-          </label>
-        </div>
-
-        <div id="progressBox" class="hidden">
-          <div class="flex justify-between text-sm mb-1">
-            <span id="progressText">Đang xử lý...</span>
-            <span id="progressPercent">0%</span>
-          </div>
-          <div class="w-full h-3 bg-gray-200 dark:bg-zinc-800 rounded-full overflow-hidden">
-            <div id="progressBar" class="progress-bar h-full bg-pink-600 rounded-full" style="width:0%"></div>
-          </div>
-        </div>
-
-        <button id="btnSubmit" type="submit" class="w-full bg-pink-600 text-white py-4 rounded-2xl font-black text-lg hover:bg-pink-700 transition shadow-lg disabled:opacity-60 disabled:cursor-not-allowed">
-          GỬI ĐĂNG KÝ
-        </button>
-
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-center leading-relaxed">
-          Sau khi xác nhận thanh toán, Gmail của bạn sẽ được cấp quyền truy mục khóa học.
-        </p>
-      </form>
-    </section>
-
-  </div>
-</div>
-
-<div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white px-5 py-3 rounded-full opacity-0 transition duration-300 pointer-events-none text-sm font-bold z-50 shadow-xl">
-  Đã sao chép
-</div>
-
-<script>
-function toggleDarkMode() {
-  document.documentElement.classList.toggle('dark');
-  showToast(document.documentElement.classList.contains('dark') ? 'Đã bật giao diện tối' : 'Đã bật giao diện sáng');
-}
-
-function showToast(text) {
-  const toast = document.getElementById('toast');
-  toast.innerText = text;
-  toast.classList.remove('opacity-0');
-  setTimeout(() => toast.classList.add('opacity-0'), 2000);
-}
-
-function copyValue(id) {
-  const el = document.getElementById(id);
-  const text = el ? el.innerText.trim() : '';
-  if (!text) return showToast('Không có nội dung để sao chép');
-  navigator.clipboard.writeText(text).then(() => showToast('Đã sao chép')).catch(() => alert('Không copy được. Bạn hãy copy thủ công: ' + text));
-}
-
-function setProgress(percent, text) {
-  document.getElementById('progressBox').classList.remove('hidden');
-  document.getElementById('progressBar').style.width = percent + '%';
-  document.getElementById('progressPercent').innerText = percent + '%';
-  document.getElementById('progressText').innerText = text;
-}
-
-async function loadConfig() {
-  try {
-    const res = await fetch('/api/config', { cache: 'no-store' });
-    const data = await res.json();
-
-    const courseImage = document.getElementById('courseImage');
-    document.getElementById('courseName').innerText = data.courseName || 'KHÓA HỌC DONUT NHIỀU VỊ AN';
-    courseImage.src = data.imageUrl || 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=900&auto=format&fit=crop&q=75';
-    document.getElementById('bankName').innerText = data.bankName || 'MB BANK';
-    document.getElementById('bankAccount').innerText = data.bankAccount || '0987654321';
-    document.getElementById('bankOwner').innerText = data.bankOwner || 'NGUYỄN VĂN A';
-    document.getElementById('price').innerText = data.price || '500.000đ';
-    document.getElementById('transferNote').innerText = data.transferNote || 'DONUT + Gmail của bạn';
-
-    if (data.qrImageUrl) {
-      document.getElementById('qrImage').src = data.qrImageUrl;
-      document.getElementById('qrBox').classList.remove('hidden');
-      document.getElementById('qrEmpty').classList.add('hidden');
-    }
-  } catch (err) {
-    console.log('Không tải được cấu hình:', err);
-  }
-}
-loadConfig();
-
-document.getElementById('bill').addEventListener('change', function () {
-  const file = this.files[0];
-  const preview = document.getElementById('billPreview');
-  const uploadText = document.getElementById('uploadText');
-
-  if (!file) {
-    preview.classList.add('hidden');
-    preview.src = '';
-    uploadText.classList.remove('hidden');
-    return;
-  }
-
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-  if (!allowedTypes.includes(file.type)) {
-    alert('Chỉ nhận file JPG, PNG hoặc WEBP.');
-    this.value = '';
-    preview.classList.add('hidden');
-    preview.src = '';
-    uploadText.classList.remove('hidden');
-    return;
-  }
-
-  if (file.size > 5 * 1024 * 1024) {
-    alert('Ảnh bill quá lớn. Vui lòng chọn ảnh dưới 5MB.');
-    this.value = '';
-    preview.classList.add('hidden');
-    preview.src = '';
-    uploadText.classList.remove('hidden');
-    return;
-  }
-
-  preview.src = URL.createObjectURL(file);
-  preview.classList.remove('hidden');
-  uploadText.classList.add('hidden');
-});
-
-document.getElementById('regForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const btn = document.getElementById('btnSubmit');
-  btn.disabled = true;
-  btn.innerText = 'ĐANG XỬ LÝ...';
-  setProgress(15, 'Đang kiểm tra dữ liệu...');
-
-  const gmail = document.getElementById('gmail').value.trim();
-  const file = document.getElementById('bill').files[0];
-
-  if (!file) {
-    alert('Vui lòng chọn ảnh bill chuyển khoản');
-    btn.disabled = false;
-    btn.innerText = 'GỬI ĐĂNG KÝ';
-    return;
-  }
-
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-  if (!allowedTypes.includes(file.type)) {
-    alert('Chỉ nhận file JPG, PNG hoặc WEBP.');
-    btn.disabled = false;
-    btn.innerText = 'GỬI ĐĂNG KÝ';
-    return;
-  }
-
-  if (file.size > 5 * 1024 * 1024) {
-    alert('Ảnh bill quá lớn. Vui lòng chọn ảnh dưới 5MB.');
-    btn.disabled = false;
-    btn.innerText = 'GỬI ĐĂNG KÝ';
-    return;
-  }
-
-  setProgress(35, 'Đang đọc ảnh bill...');
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-
-  reader.onloadend = async () => {
-    const base64Data = reader.result.split(',')[1];
-    try {
-      setProgress(60, 'Đang upload bill...');
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ gmail, billName: file.name, billType: file.type, billData: base64Data })
-      });
-
-      setProgress(90, 'Đang ghi nhận đăng ký...');
-      const data = await response.json();
-
-      if (response.ok) {
-        setProgress(100, 'Hoàn tất');
-        showToast('Đăng ký thành công');
-        alert('Đăng ký thành công. Bill của bạn đã được ghi nhận. Admin sẽ kiểm tra thanh toán và cấp quyền học sớm nhất.');
-        document.getElementById('regForm').reset();
-        document.getElementById('billPreview').classList.add('hidden');
-        document.getElementById('billPreview').src = '';
-        document.getElementById('uploadText').classList.remove('hidden');
-      } else {
-        alert(data.error || 'Lỗi hệ thống');
-      }
-    } catch (err) {
-      alert('Không thể kết nối server');
-    }
-
-    btn.disabled = false;
-    btn.innerText = 'GỬI ĐĂNG KÝ';
-  };
-});
-</script>
-</body>
-</html>
+            <img id="billPreview" src="" alt="Xem trước bill" class="hidden mt-4 rounded-2xl border border-black/5 dark:border-
