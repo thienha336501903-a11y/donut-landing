@@ -161,39 +161,34 @@
               GỬI BILL CHUYỂN KHOẢN THÀNH CÔNG
             </span>
           </a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- QR -->
-  <section id="qr" class="px-5 sm:px-8 lg:px-12 pt-1 pb-6 sm:py-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="card rounded-[30px] sm:rounded-[34px] p-5 sm:p-8 lg:p-10 text-center">
-        <p class="text-xs font-black tracking-[.3em] uppercase text-[#c9a96e] mb-3">QR Payment</p>
-        <h2 class="serif text-4xl sm:text-5xl font-black leading-tight mb-7">Quét QR chuyển khoản</h2>
+          <div class="mt-5 rounded-[26px] bg-[#111] border border-[#c9a96e]/30 p-4 sm:p-5 text-center">
+            <p class="text-xs font-black tracking-[.26em] uppercase text-[#c9a96e] mb-2">QR Payment</p>
+            <h3 class="serif text-3xl sm:text-4xl font-black text-[#f5efe6] leading-tight mb-4">Quét QR chuyển khoản</h3>
 
-        <div id="qrBox" class="hidden">
-          <div class="cream-card rounded-[28px] p-5 inline-block w-full max-w-sm mx-auto">
-            <img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-72 max-w-full rounded-2xl bg-white p-3 shadow-sm">
+            <div id="qrBox" class="hidden">
+              <div class="bg-[#fff9ef] rounded-[24px] p-4 inline-block w-full max-w-[280px] mx-auto shadow-[0_16px_40px_rgba(0,0,0,.28)] border border-[#c9a96e]/35">
+                <img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-full rounded-2xl bg-white p-2 shadow-sm">
+              </div>
+              <p class="text-xs text-[#f5efe6]/58 mt-3">Quét mã bằng app ngân hàng để tự động điền thông tin.</p>
+            </div>
+
+            <div id="qrEmpty" class="text-center text-[#f5efe6]/55 py-6">
+              Chưa có QR. Hãy thêm <b>qrImageUrl</b> trong tab Config.
+            </div>
+
+            <div id="downloadQrBox" class="hidden mt-4">
+              <button onclick="downloadQR()" class="w-full sm:w-auto py-3 px-6 rounded-full border border-[#c9a96e]/40 text-sm font-black bg-[#c9a96e] text-[#17130d] hover:brightness-105 transition">
+                TẢI QR VỀ MÁY
+              </button>
+            </div>
           </div>
-          <p class="text-xs text-[#f5efe6]/55 mt-4">Quét mã bằng app ngân hàng để tự động điền thông tin.</p>
-        </div>
-
-        <div id="qrEmpty" class="text-center text-[#f5efe6]/55 py-10">
-          Chưa có QR. Hãy thêm <b>qrImageUrl</b> trong tab Config.
-        </div>
-
-        <div id="downloadQrBox" class="hidden mt-5">
-          <button onclick="downloadQR()" class="w-full sm:w-auto py-3 px-7 rounded-full border border-[#c9a96e]/35 text-sm font-black bg-white/5 hover:bg-white/10 transition">
-            Tải mã QR về máy
-          </button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FORM -->
+<!-- FORM -->
   <section id="register" class="px-5 sm:px-8 lg:px-12 py-8 sm:py-12 pb-12 sm:pb-16">
     <div class="max-w-5xl mx-auto">
       <div class="cream-card rounded-[30px] sm:rounded-[34px] p-5 sm:p-8 lg:p-10">
