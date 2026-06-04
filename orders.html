@@ -16,7 +16,7 @@
       Quản lý học viên chờ duyệt
     </h1>
     <p class="text-gray-500 mt-2">
-      Xem học viên theo từng khóa học, mở bill và lọc trạng thái.
+      Bấm vào từng khóa để xem học viên, mở bill, copy Gmail và duyệt hàng loạt.
     </p>
   </div>
 
@@ -58,9 +58,26 @@
 
 </div>
 
+<div
+id="toast"
+class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white px-5 py-3 rounded-full opacity-0 transition"
+>
+Đã copy
+</div>
+
 <script>
 let allOrders = [];
 let selectedCourse = "";
+
+function showToast(text) {
+  const toast = document.getElementById("toast");
+  toast.innerText = text;
+  toast.classList.remove("opacity-0");
+
+  setTimeout(() => {
+    toast.classList.add("opacity-0");
+  }, 2000);
+}
 
 function getValue(order, keys) {
   for (const key of keys) {
@@ -119,6 +136,7 @@ function renderSummary() {
 
 function selectCourse(course) {
   selectedCourse = course;
+  document.getElementById("statusFilter").value = "Chờ duyệt";
   renderOrders();
 }
 
@@ -129,8 +147,7 @@ function clearFilter() {
   renderOrders();
 }
 
-function renderOrders() {
-  const box = document.getElementById("orderList");
+function getFilteredOrders() {
   const keyword = document.getElementById("searchInput").value.toLowerCase().trim();
   const statusFilter = document.getElementById("statusFilter").value;
 
@@ -163,6 +180,94 @@ function renderOrders() {
     });
   }
 
+  return orders;
+}
+
+async function copyPendingGmails() {
+  const orders = allOrders.filter(order => {
+    const course = getValue(order, ["Course", "course"]);
+    const status = getValue(order, ["Trạng thái", "status"]);
+    return course === selectedCourse && status === "Chờ duyệt";
+  });
+
+  const gmails = orders
+    .map(order => getValue(order, ["Gmail", "gmail"]))
+    .filter(Boolean);
+
+  if (gmails.length === 0) {
+    alert("Không có Gmail chờ duyệt để copy.");
+    return;
+  }
+
+  await navigator.clipboard.writeText(gmails.join("\n"));
+  showToast(`Đã copy ${gmails.length} Gmail`);
+}
+
+async function approveAllPending() {
+  if (!selectedCourse) {
+    alert("Vui lòng chọn một khóa học trước.");
+    return;
+  }
+
+  const pendingCount = allOrders.filter(order => {
+    const course = getValue(order, ["Course", "course"]);
+    const status = getValue(order, ["Trạng thái", "status"]);
+    return course === selectedCourse && status === "Chờ duyệt";
+  }).length;
+
+  if (pendingCount === 0) {
+    alert("Khóa này không có học viên chờ duyệt.");
+    return;
+  }
+
+  const ok = confirm(
+    `Duyệt tất cả ${pendingCount} học viên đang chờ duyệt của khóa "${selectedCourse}"?\n\nHệ thống sẽ copy Gmail vào clipboard và đổi trạng thái trong Sheet thành Đã duyệt.`
+  );
+
+  if (!ok) return;
+
+  try {
+    const res = await fetch("/api/approve-all", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        course: selectedCourse
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.error || "Lỗi khi duyệt tất cả.");
+      return;
+    }
+
+    const gmailText = (data.gmails || []).join("\n");
+
+    if (gmailText) {
+      await navigator.clipboard.writeText(gmailText);
+    }
+
+    alert(
+      `Đã duyệt ${data.count} học viên.\n\nDanh sách Gmail đã được copy. Bạn chỉ cần sang Google Drive và dán vào ô chia sẻ.`
+    );
+
+    await loadOrders();
+    selectedCourse = selectedCourse;
+    document.getElementById("statusFilter").value = "Chờ duyệt";
+    renderOrders();
+
+  } catch (err) {
+    alert("Không thể duyệt tất cả. Kiểm tra lại API approve-all.js.");
+  }
+}
+
+function renderOrders() {
+  const box = document.getElementById("orderList");
+  const orders = getFilteredOrders();
+
   if (orders.length === 0) {
     box.innerHTML = `
       <div class="p-6 text-center text-gray-500">
@@ -173,8 +278,28 @@ function renderOrders() {
   }
 
   box.innerHTML = `
-    <div class="p-4 border-b bg-gray-50 font-bold">
-      ${selectedCourse ? "Đang xem khóa: " + selectedCourse : "Tất cả đơn"} — ${orders.length} đơn
+    <div class="p-4 border-b bg-gray-50 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="font-bold">
+        ${selectedCourse ? "Đang xem khóa: " + selectedCourse : "Tất cả đơn"} — ${orders.length} đơn
+      </div>
+
+      ${selectedCourse ? `
+        <div class="flex flex-col sm:flex-row gap-2">
+          <button
+            onclick="copyPendingGmails()"
+            class="bg-gray-900 text-white px-4 py-2 rounded-xl font-bold"
+          >
+            Copy Gmail chờ duyệt
+          </button>
+
+          <button
+            onclick="approveAllPending()"
+            class="bg-green-600 text-white px-4 py-2 rounded-xl font-bold"
+          >
+            Duyệt tất cả
+          </button>
+        </div>
+      ` : ""}
     </div>
 
     <div class="overflow-x-auto">
