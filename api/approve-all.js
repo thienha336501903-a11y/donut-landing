@@ -41,7 +41,6 @@ export default async function handler(req, res) {
 
       if (rowCourse === course && status === "Chờ duyệt") {
         gmails.push(gmail);
-
         updates.push({
           range: `Orders!F${rowNumber}`,
           values: [["Đã duyệt"]],
@@ -64,7 +63,6 @@ export default async function handler(req, res) {
       count: gmails.length,
       gmails,
     });
-
   } catch (error) {
     return res.status(500).json({
       error: error.message,
