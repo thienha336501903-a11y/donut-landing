@@ -19,28 +19,38 @@
 <header class="px-4 sm:px-6 lg:px-10 pt-5"><div class="max-w-7xl mx-auto flex items-center justify-between gap-4"><div class="inline-flex items-center gap-2 rounded-full bg-white/82 border border-black/10 px-4 py-2 shadow-sm"><span class="w-2.5 h-2.5 rounded-full bg-[#b65c4b]"></span><span class="mini-kicker text-[#7a675c]">Pinterest Food Studio</span></div><a href="#payment" class="hidden sm:inline-flex rounded-full bg-[#241712] text-white px-5 py-2.5 text-xs font-black uppercase tracking-[.14em] hover:brightness-110 transition">Thanh toán</a></div></header>
 <section class="px-4 sm:px-6 lg:px-10 py-5 sm:py-8"><div class="max-w-7xl mx-auto grid lg:grid-cols-[.92fr_1.08fr] gap-5 lg:gap-7 items-start"><div class="pin rounded-[34px] overflow-hidden bg-white"><div class="p-3 sm:p-4 bg-[#fff3e5]"><img id="courseImage" src="" alt="Ảnh khóa học" loading="eager" decoding="async" fetchpriority="high" class="poster-img rounded-[26px]"></div><div class="p-5 sm:p-6"><p class="mini-kicker text-[#b65c4b] mb-2">Recipe Pin</p><p class="serif text-3xl sm:text-4xl leading-none text-[#241712]">Ảnh poster khóa học</p></div></div><div class="masonry"><div class="pin pin-soft rounded-[32px] p-5 sm:p-7"><p class="mini-kicker text-[#b65c4b] mb-3">Khóa học online</p><h1 id="courseName" class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-[#241712] uppercase">Đang tải khóa học...</h1><p class="mt-4 text-[#7a675c] text-base sm:text-lg leading-relaxed font-bold">Đăng ký nhanh bằng Gmail, chuyển khoản và gửi bill xác nhận. Admin kiểm tra thanh toán và cấp quyền học trong vòng 24 giờ.</p><a href="#payment" class="primary-btn mt-6 inline-flex w-full justify-center rounded-full px-6 py-4 text-sm sm:text-base font-black uppercase tracking-[.14em] transition">Tiến hành thanh toán khóa học</a></div><div class="pin rounded-[32px] p-5 sm:p-6 bg-[#241712] text-white"><p class="mini-kicker text-[#f1ba72] mb-2">Học phí</p><p id="price" class="serif text-5xl sm:text-6xl leading-none">Đang tải...</p><p class="mt-3 text-white/62 font-bold text-sm">Giá khóa học được lấy tự động từ Google Sheet.</p></div><div class="pin rounded-[32px] p-5 bg-[#6f7d5a] text-white"><p class="serif text-4xl leading-none">24H</p><p class="font-black mt-2">Xác nhận thanh toán và cấp quyền học</p></div><div class="pin rounded-[32px] p-5 bg-white"><p class="mini-kicker text-[#b65c4b] mb-2">Studio Note</p><p class="font-black text-xl leading-snug">Sau khi chuyển khoản, hãy upload bill ở cuối trang để admin kiểm tra.</p></div></div></div></section>
 <section id="payment" class="px-4 sm:px-6 lg:px-10 py-5 sm:py-8"><div class="max-w-7xl mx-auto"><div class="mb-5 sm:mb-7 flex items-end justify-between gap-4"><div><p class="mini-kicker text-[#b65c4b] mb-2">Payment Board</p><h2 class="serif text-5xl sm:text-6xl lg:text-7xl leading-none">Thanh toán</h2></div><a href="#register" class="hidden sm:inline-flex primary-btn rounded-full px-5 py-3 text-xs font-black uppercase tracking-[.14em] transition">Up bill</a></div><div class="grid lg:grid-cols-[1.05fr_.95fr] gap-5 lg:gap-7 items-start"><div class="pin rounded-[34px] overflow-hidden"><div class="p-5 sm:p-6 bg-[#fff3e5] border-b border-black/10"><p class="mini-kicker text-[#6f7d5a] mb-1">Payment Details</p><h3 class="text-2xl sm:text-3xl font-black">Thông tin chuyển khoản</h3></div><div class="divide-y divide-black/10 bg-white"><div class="p-5"><p class="mini-kicker text-[#7a675c] mb-1">Ngân hàng</p><p class="font-black text-xl" id="bankName">Đang tải...</p></div><div class="p-5 flex items-center justify-between gap-3"><div class="min-w-0"><p class="mini-kicker text-[#7a675c] mb-1">Số tài khoản</p><p class="font-black text-2xl break-all" id="bankAccount">Đang tải...</p></div><button onclick="copyValue('bankAccount')" class="shrink-0 dark-btn rounded-full px-4 py-2 text-xs font-black uppercase tracking-wider transition">Copy</button></div><div class="p-5"><p class="mini-kicker text-[#7a675c] mb-1">Chủ tài khoản</p><p class="font-black text-xl" id="bankOwner">Đang tải...</p></div><div class="p-5 flex items-center justify-between gap-3 bg-[#fff8f0]"><div class="min-w-0"><p class="mini-kicker text-[#b65c4b] mb-1">Số tiền</p><p class="serif font-black text-5xl text-[#b65c4b]" id="pricePayment">Đang tải...</p></div><button onclick="copyValue('price')" class="shrink-0 dark-btn rounded-full px-4 py-2 text-xs font-black uppercase tracking-wider transition">Copy</button></div><div class="p-5 bg-[#241712] text-white flex items-center justify-between gap-3"><div class="min-w-0"><p class="mini-kicker text-[#f1ba72] mb-1">Nội dung chuyển khoản</p><p class="font-black text-xl break-words" id="transferNote">Đang tải...</p></div><button onclick="copyValue('transferNote')" class="shrink-0 bg-[#f1ba72] text-[#241712] rounded-full px-4 py-2 text-xs font-black uppercase tracking-wider hover:brightness-105 transition">Copy</button></div><a
-  href="#register"
-  class="
-    block
-    bg-[#b65c4b]
-    text-white
-    px-5
-    py-5
-    text-center
-    hover:brightness-110
-    transition
-    shadow-[0_20px_40px_rgba(182,92,75,.35)]
-    border-t border-white/10
-  "
+href="#register"
+class="
+block
+bg-[#b65c4b]
+text-white
+px-5
+py-5
+text-center
+hover:brightness-110
+transition
+shadow-[0_20px_40px_rgba(182,92,75,.35)]
+"
+
 >
-  <div class="text-xl sm:text-2xl font-black tracking-wide">
+
+  <div class="text-xl sm:text-2xl font-black tracking-wide animate-bounce">
+    👇👇👇
+  </div>
+
+  <div class="text-lg sm:text-xl font-black uppercase tracking-[.12em] mt-1">
     📌 GỬI BILL CHUYỂN KHOẢN THÀNH CÔNG
   </div>
 
   <div class="mt-2 text-sm sm:text-base font-bold text-white/90">
-    ↓ Upload bill để nhận quyền học ↓
+    ↓ Nhấn vào đây để upload bill ↓
   </div>
-</a></div></div><div class="pin rounded-[34px] overflow-hidden bg-[#241712] text-white"><div class="p-5 sm:p-6 border-b border-white/10 text-center"><p class="mini-kicker text-[#f1ba72] mb-2">QR Payment Pin</p><h3 class="serif text-5xl sm:text-6xl leading-none">Scan<br>to Pay</h3></div><div class="p-5 sm:p-6 text-center"><div id="qrBox" class="hidden"><div class="bg-white rounded-[30px] p-3 inline-block w-full max-w-[300px] mx-auto shadow-[0_18px_38px_rgba(0,0,0,.25)]"><img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-full rounded-[22px] bg-white p-2"></div><p class="text-xs text-white/58 mt-3 font-bold">Quét mã bằng app ngân hàng để tự động điền thông tin.</p></div><div id="qrEmpty" class="text-center text-white/62 py-8 font-bold">Chưa có QR. Hãy thêm <b>qrImageUrl</b> trong tab Config.</div><div id="downloadQrBox" class="hidden mt-5"><button onclick="downloadQR()" class="primary-btn w-full py-3 px-6 rounded-full text-sm font-black uppercase tracking-[.14em] transition">Tải QR về máy</button></div></div></div></div></div></section>
+
+  <div class="text-xl sm:text-2xl font-black mt-2 animate-bounce">
+    👇👇👇
+  </div>
+</a>
+</div></div><div class="pin rounded-[34px] overflow-hidden bg-[#241712] text-white"><div class="p-5 sm:p-6 border-b border-white/10 text-center"><p class="mini-kicker text-[#f1ba72] mb-2">QR Payment Pin</p><h3 class="serif text-5xl sm:text-6xl leading-none">Scan<br>to Pay</h3></div><div class="p-5 sm:p-6 text-center"><div id="qrBox" class="hidden"><div class="bg-white rounded-[30px] p-3 inline-block w-full max-w-[300px] mx-auto shadow-[0_18px_38px_rgba(0,0,0,.25)]"><img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-full rounded-[22px] bg-white p-2"></div><p class="text-xs text-white/58 mt-3 font-bold">Quét mã bằng app ngân hàng để tự động điền thông tin.</p></div><div id="qrEmpty" class="text-center text-white/62 py-8 font-bold">Chưa có QR. Hãy thêm <b>qrImageUrl</b> trong tab Config.</div><div id="downloadQrBox" class="hidden mt-5"><button onclick="downloadQR()" class="primary-btn w-full py-3 px-6 rounded-full text-sm font-black uppercase tracking-[.14em] transition">Tải QR về máy</button></div></div></div></div></div></section>
 <section id="register" class="px-4 sm:px-6 lg:px-10 py-5 sm:py-8 pb-12 sm:pb-16"><div class="max-w-7xl mx-auto grid lg:grid-cols-[.78fr_1.22fr] gap-5 lg:gap-7 items-stretch"><div class="pin rounded-[34px] p-5 sm:p-7 bg-[#b65c4b] text-white"><p class="mini-kicker text-white/70 mb-3">Upload Receipt</p><h2 class="serif text-5xl sm:text-6xl lg:text-7xl leading-none">Gửi bill<br>xác nhận</h2><p class="mt-5 text-white/78 text-base sm:text-lg font-bold leading-relaxed">Sau khi thanh toán, nhập Gmail nhận khóa học và upload ảnh bill. Admin sẽ kiểm tra và cấp quyền học trong vòng 24 giờ.</p></div><div class="pin rounded-[34px] p-5 sm:p-7 bg-white"><form id="regForm" class="space-y-6"><div><label class="block font-black mb-2 text-[#241712] uppercase tracking-wider text-sm">Gmail nhận khóa học</label><input type="email" id="gmail" required class="input-pin w-full rounded-[24px] p-4 text-lg font-bold" placeholder="Nhập Gmail của bạn"></div><div><label class="block font-black mb-2 text-[#241712] uppercase tracking-wider text-sm">Ảnh bill chuyển khoản</label><label class="block border-2 border-dashed border-black/18 rounded-[30px] p-6 sm:p-8 text-center cursor-pointer hover:bg-[#faf7f2] transition"><input type="file" id="bill" required accept="image/jpeg,image/png,image/webp" class="hidden"><div id="uploadText"><p class="serif text-6xl mb-1 text-[#b65c4b]">+</p><p class="font-black text-lg text-[#241712]">Chọn ảnh bill để xác nhận</p><p class="text-sm text-black/55 mt-1 font-bold">Chỉ nhận JPG, PNG, WEBP. Tối đa 5MB.</p></div><img id="billPreview" src="" alt="Xem trước bill" class="hidden mt-5 rounded-[24px] border border-black/10 max-h-[520px] w-full object-contain mx-auto shadow-lg bg-white"></label></div><div id="progressBox" class="hidden"><div class="flex justify-between text-sm mb-2 font-black text-[#241712]"><span id="progressText">Đang xử lý...</span><span id="progressPercent">0%</span></div><div class="w-full h-3 bg-[#e9dfd2] rounded-full overflow-hidden"><div id="progressBar" class="progress-bar h-full rounded-full" style="width:0%"></div></div></div><button id="btnSubmit" type="submit" class="dark-btn w-full py-4 rounded-full font-black text-lg transition disabled:opacity-60 disabled:cursor-not-allowed uppercase tracking-[.15em]">Gửi đăng ký</button><p class="text-sm text-black/55 text-center leading-relaxed font-bold">Gmail của bạn sẽ được cấp quyền truy cập thư mục khóa học sau khi xác nhận thanh toán.</p></form></div></div></section>
 </div>
 <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-[#241712] text-white px-5 py-3 rounded-full opacity-0 transition duration-300 pointer-events-none text-sm font-black z-50 shadow-xl">Đã sao chép</div>
