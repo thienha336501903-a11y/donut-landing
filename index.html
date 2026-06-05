@@ -3,388 +3,256 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Sổ đăng ký khóa học</title>
-
+<title>Đăng ký khóa học</title>
 <link rel="preconnect" href="https://cdn.tailwindcss.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;600;700;800;900&family=Fraunces:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-
 <style>
-  :root {
-    --paper: #fff8ea;
-    --paper-deep: #f3dfb9;
-    --ink: #3b2416;
-    --brown: #6b4028;
-    --coffee: #8a5536;
-    --caramel: #c47a43;
-    --honey: #f0bf64;
-    --green: #6f7a4a;
-    --red: #9f3f2e;
-    --line: rgba(107, 64, 40, .20);
+  :root{
+    --ink:#080808;
+    --soft:#f5efe6;
+    --gold:#c9a96e;
+    --gold2:#e7d09a;
   }
-
-  * { box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    margin: 0;
-    font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    color: var(--ink);
-    overflow-x: hidden;
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     background:
-      radial-gradient(circle at 14% 8%, rgba(240,191,100,.35), transparent 28%),
-      radial-gradient(circle at 88% 12%, rgba(196,122,67,.18), transparent 24%),
-      linear-gradient(180deg, #f9ead1 0%, #eed6aa 52%, #dfbf88 100%);
+      radial-gradient(circle at 16% 8%, rgba(201,169,110,.16), transparent 30%),
+      radial-gradient(circle at 82% 0%, rgba(245,239,230,.08), transparent 24%),
+      linear-gradient(180deg,#050505 0%,#101010 50%,#080808 100%);
+    color:var(--soft);
+    overflow-x:hidden;
   }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-      linear-gradient(rgba(107,64,40,.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(107,64,40,.04) 1px, transparent 1px);
-    background-size: 28px 28px;
-    opacity: .65;
-    z-index: 0;
+  .serif{font-family:"Playfair Display",Georgia,serif}
+  .gold-gradient{
+    background:linear-gradient(92deg,#fff0bd,#c9a96e 46%,#8d682f);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
   }
-
-  .page-wrap {
-    position: relative;
-    z-index: 1;
+  .hero-cover::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.88) 68%,#080808 100%);
+    z-index:1;
   }
-
-  .title-font {
-    font-family: "Fraunces", Georgia, serif;
+  .course-bg-img{filter:saturate(.92) contrast(1.06); transform:scale(1.02)}
+  .card{
+    background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+    border:1px solid rgba(201,169,110,.22);
+    box-shadow:0 22px 64px rgba(0,0,0,.34);
   }
-
-  .hand-font {
-    font-family: "Patrick Hand", cursive;
+  .cream-card{
+    background:linear-gradient(145deg,#fff9ef,#eee0ca);
+    color:#17130d;
+    border:1px solid rgba(201,169,110,.36);
+    box-shadow:0 22px 64px rgba(0,0,0,.28);
   }
-
-  .notebook {
-    background:
-      linear-gradient(90deg, rgba(107,64,40,.16) 0 0),
-      linear-gradient(180deg, #fffaf0 0%, #fff4dc 100%);
-    border: 2px solid rgba(107,64,40,.18);
-    box-shadow:
-      0 28px 70px rgba(107,64,40,.18),
-      inset 0 0 0 1px rgba(255,255,255,.58);
-    position: relative;
+  .gold-btn{
+    background:linear-gradient(135deg,#f0dca8,#c9a96e 45%,#9a7336);
+    color:#120f0a;
+    box-shadow:0 16px 38px rgba(201,169,110,.25);
   }
-
-  .notebook::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 22px;
-    width: 4px;
-    height: 100%;
-    background: repeating-linear-gradient(
-      to bottom,
-      rgba(107,64,40,.22) 0px,
-      rgba(107,64,40,.22) 18px,
-      transparent 18px,
-      transparent 34px
-    );
-    border-left: 1px solid rgba(107,64,40,.12);
-    border-right: 1px solid rgba(107,64,40,.10);
-  }
-
-  .paper-card {
-    background: rgba(255, 250, 240, .94);
-    border: 1.5px solid rgba(107,64,40,.20);
-    box-shadow: 0 14px 34px rgba(107,64,40,.12);
-  }
-
-  .kraft-card {
-    background:
-      linear-gradient(145deg, rgba(255,250,240,.82), rgba(239,214,170,.72));
-    border: 1.5px dashed rgba(107,64,40,.28);
-  }
-
-  .recipe-line {
-    background-image: linear-gradient(to bottom, transparent 95%, rgba(107,64,40,.13) 96%);
-    background-size: 100% 30px;
-  }
-
-  .tape {
-    position: absolute;
-    top: -13px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
-    width: 116px;
-    height: 28px;
-    background: rgba(240,191,100,.62);
-    border: 1px solid rgba(107,64,40,.12);
-    box-shadow: 0 4px 12px rgba(107,64,40,.10);
-  }
-
-  .photo {
-    background: #fffdf7;
-    padding: 12px 12px 42px 12px;
-    box-shadow: 0 20px 42px rgba(107,64,40,.20);
-    border: 1px solid rgba(107,64,40,.14);
-    transform: rotate(-2deg);
-  }
-
-  .stamp {
-    border: 2px solid rgba(159,63,46,.75);
-    color: #9f3f2e;
-    transform: rotate(-5deg);
-  }
-
-  .price-label {
-    background: #fff3cf;
-    border: 2px solid rgba(196,122,67,.28);
-    box-shadow: 0 10px 26px rgba(196,122,67,.14);
-  }
-
-  .primary-btn {
-    background: linear-gradient(135deg, #f0bf64, #d98a45 52%, #a65333);
-    color: #321d12;
-    box-shadow: 0 14px 28px rgba(196,122,67,.24);
-  }
-
-  .primary-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
-
-  .brown-btn {
-    background: linear-gradient(135deg, #7b4a2f, #3b2416);
-    color: #fff8ea;
-  }
-
-  .brown-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
-
-  .input-soft {
-    background: rgba(255,255,255,.72);
-    border: 1.5px solid rgba(107,64,40,.25);
-    color: #3b2416;
-  }
-
-  .input-soft:focus {
-    outline: none;
-    border-color: #c47a43;
-    box-shadow: 0 0 0 4px rgba(196,122,67,.16);
-  }
-
-  .progress-bar {
-    transition: width .35s ease;
-    background: linear-gradient(90deg, #6b4028, #c47a43, #f0bf64);
-  }
-
-  .cutout {
-    background: #fffaf0;
-    border: 1.5px solid rgba(107,64,40,.18);
-    box-shadow: 0 10px 24px rgba(107,64,40,.12);
-  }
-
-  @media (max-width: 768px) {
-    .notebook::before { left: 13px; width: 3px; }
-    .notebook { border-radius: 28px; }
-    .photo { transform: none; padding-bottom: 32px; }
+  .gold-btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .progress-bar{transition:width .35s ease;background:linear-gradient(90deg,#111,#c9a96e)}
+  @media (max-width:768px){
+    body{background:linear-gradient(180deg,#070707 0%,#111 56%,#080808 100%)}
+    .course-bg-img{object-position:center top; opacity:.58}
   }
 </style>
 </head>
 
 <body id="pageBody">
-<div class="page-wrap px-3 sm:px-5 lg:px-8 py-4 sm:py-8">
 
-  <main class="max-w-7xl mx-auto notebook rounded-[36px] sm:rounded-[44px] overflow-hidden pl-5 sm:pl-8">
+<main class="min-h-screen">
 
-    <!-- NOTEBOOK COVER / COURSE -->
-    <section class="grid lg:grid-cols-[.9fr_1.1fr] gap-6 lg:gap-10 p-4 sm:p-7 lg:p-10 min-h-[88svh] items-center">
+  <!-- HERO -->
+  <section class="hero-cover relative min-h-[88svh] overflow-hidden flex items-end">
+    <img id="courseImage" src="" alt="Ảnh khóa học" loading="eager" decoding="async" fetchpriority="high" class="course-bg-img absolute inset-0 w-full h-full object-cover opacity-72">
 
-      <div class="relative">
-        <div class="tape"></div>
-        <div class="photo rounded-[18px] max-w-[520px] mx-auto">
-          <div class="rounded-[14px] overflow-hidden bg-[#f1ddb8]">
-            <img id="courseImage" src="" alt="Ảnh khóa học" loading="eager" decoding="async" fetchpriority="high" class="w-full aspect-[9/16] object-contain bg-[#fff8ea]">
+    <div class="relative z-10 w-full px-5 sm:px-8 lg:px-12 py-10 sm:py-14 lg:py-16">
+      <div class="max-w-6xl mx-auto">
+        <p class="text-xs sm:text-sm tracking-[.34em] uppercase text-[#c9a96e] font-black mb-4">
+          Premium Culinary Course
+        </p>
+
+        <h1 id="courseName" class="serif gold-gradient text-5xl sm:text-6xl lg:text-8xl leading-[.92] font-black max-w-4xl">
+          Đang tải khóa học...
+        </h1>
+
+        <p class="mt-5 max-w-2xl text-base sm:text-lg text-[#f5efe6]/78 leading-relaxed">
+          Đăng ký nhanh bằng Gmail, chuyển khoản, upload bill. Admin sẽ kiểm tra và cấp quyền học sau khi xác nhận thanh toán trong vòng tối đa 24 giờ.
+        </p>
+
+        <div class="mt-7 card rounded-[28px] p-5 sm:p-6 max-w-2xl backdrop-blur-xl">
+         <p class="text-lg sm:text-xl uppercase tracking-[.25em] text-[#c9a96e] font-black mb-2">
+  HỌC PHÍ KHÓA HỌC
+</p>
+          <p id="price" class="serif text-4xl sm:text-5xl font-black text-[#e7d09a]">Đang tải...</p>
+
+          <div class="mt-5 space-y-2.5 text-sm sm:text-[15px] text-[#f5efe6]/82 font-semibold leading-relaxed">
+            <p>✓ Nhận đầy đủ công thức, tài liệu và hướng dẫn thực hành chi tiết</p>
+            <p>✓ Quyền truy cập khóa học được cấp trực tiếp qua Gmail đăng ký</p>
+            <p>✓ Xác nhận thanh toán và kích hoạt quyền học trong vòng 24 giờ</p>
           </div>
-          <p class="hand-font text-center text-3xl sm:text-4xl text-[#6b4028] mt-3 leading-none">
-            handmade recipe class
-          </p>
+        </div>
+
+        <div class="mt-7 flex flex-col sm:flex-row gap-3">
+         <a href="#payment" class="gold-btn rounded-full px-7 py-5 text-base sm:text-lg font-black tracking-wide text-center uppercase transition">
+  TIẾN HÀNH THANH TOÁN KHÓA HỌC
+</a>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="relative">
-        <div class="paper-card rounded-[32px] p-5 sm:p-8 lg:p-10 recipe-line">
-          <div class="flex flex-wrap items-center gap-3 mb-5">
-            <span class="stamp inline-flex px-4 py-2 rounded-xl text-xs sm:text-sm font-black uppercase tracking-[.18em]">
-              Recipe Notebook
-            </span>
-            <span class="inline-flex px-4 py-2 rounded-full bg-[#6f7a4a] text-[#fff8ea] text-xs sm:text-sm font-black uppercase tracking-[.16em]">
-              Lớp học thực hành
-            </span>
-          </div>
-
-          <p class="hand-font text-3xl sm:text-4xl text-[#8a5536] mb-1">Tên khóa học</p>
-          <h1 id="courseName" class="title-font text-5xl sm:text-6xl lg:text-7xl leading-[.92] font-black text-[#3b2416]">
-            Đang tải khóa học...
-          </h1>
-
-          <p class="mt-5 text-base sm:text-lg font-bold text-[#6b4028]/82 leading-relaxed max-w-2xl">
-            Đăng ký nhanh bằng Gmail, chuyển khoản và gửi bill xác nhận. Admin kiểm tra thanh toán và cấp quyền học trong vòng 24 giờ.
-          </p>
-
-          <div class="price-label rounded-[26px] p-5 sm:p-6 mt-7">
-            <p class="text-xs sm:text-sm uppercase tracking-[.25em] font-black text-[#9b5a32]">Phiếu học phí</p>
-            <p id="price" class="title-font text-4xl sm:text-5xl font-black text-[#a65333] mt-1">Đang tải...</p>
-          </div>
-
-          <a href="#payment" class="primary-btn mt-7 inline-flex w-full sm:w-auto justify-center rounded-[18px] px-7 py-4 text-base sm:text-lg font-black uppercase tracking-wide transition">
-            Tiến hành thanh toán khóa học
-          </a>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- PAYMENT PAGE -->
-    <section id="payment" class="p-4 sm:p-7 lg:p-10 pt-2 sm:pt-4">
-      <div class="paper-card rounded-[32px] p-5 sm:p-7 lg:p-8 relative">
-        <div class="tape"></div>
-
-        <div class="mb-6 text-center sm:text-left">
-          <p class="hand-font text-3xl sm:text-4xl text-[#8a5536]">Phiếu chuyển khoản</p>
-          <h2 class="title-font text-4xl sm:text-5xl font-black text-[#3b2416] leading-tight">Thanh toán khóa học</h2>
-          <p class="mt-2 text-[#6b4028]/76 font-bold leading-relaxed">
-            Chuyển khoản đúng thông tin bên dưới, sau đó gửi bill xác nhận để được cấp quyền học.
-          </p>
+  <!-- PAYMENT -->
+  <section id="payment" class="px-5 sm:px-8 lg:px-12 py-6 sm:py-10">
+    <div class="max-w-5xl mx-auto">
+      <div class="cream-card rounded-[30px] sm:rounded-[34px] p-5 sm:p-8 lg:p-10">
+        <div class="mb-7">
+          <p class="text-xs font-black tracking-[.3em] uppercase text-[#7c5c25] mb-3">Bank Transfer</p>
+          <h2 class="serif text-4xl sm:text-5xl font-black leading-tight">Thông tin chuyển khoản</h2>
         </div>
 
-        <div class="kraft-card rounded-[30px] p-4 sm:p-6">
-          <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-6 lg:gap-8 items-start">
-            <div class="space-y-4">
-              <div class="pb-3 border-b border-[#6b4028]/15">
-                <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Ngân hàng</p>
-                <p class="font-black text-[#3b2416] text-lg" id="bankName">Đang tải...</p>
-              </div>
+        <div class="space-y-4 text-base sm:text-lg">
+          <div class="pb-3 border-b border-[#c9a96e]/25">
+            <p class="text-xs font-black uppercase tracking-wider text-[#7c5c25] mb-1">Ngân hàng</p>
+            <p class="font-black text-[#17130d]" id="bankName">Đang tải...</p>
+          </div>
 
-              <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#6b4028]/15">
-                <div class="min-w-0">
-                  <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Số tài khoản</p>
-                  <p class="font-black text-2xl tracking-wide text-[#3b2416] break-all" id="bankAccount">Đang tải...</p>
-                </div>
-                <button onclick="copyValue('bankAccount')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full brown-btn transition">Copy</button>
-              </div>
+          <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#c9a96e]/25">
+            <div class="min-w-0">
+              <p class="text-xs font-black uppercase tracking-wider text-[#7c5c25] mb-1">Số tài khoản</p>
+              <p class="font-black text-2xl tracking-wide text-[#17130d] break-all" id="bankAccount">Đang tải...</p>
+            </div>
+            <button onclick="copyValue('bankAccount')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full bg-[#111] text-[#f5efe6] hover:bg-[#2a2115] transition">Copy</button>
+          </div>
 
-              <div class="pb-3 border-b border-[#6b4028]/15">
-                <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Chủ tài khoản</p>
-                <p class="font-black text-[#3b2416] text-lg" id="bankOwner">Đang tải...</p>
-              </div>
+          <div class="pb-3 border-b border-[#c9a96e]/25">
+            <p class="text-xs font-black uppercase tracking-wider text-[#7c5c25] mb-1">Chủ tài khoản</p>
+            <p class="font-black text-[#17130d]" id="bankOwner">Đang tải...</p>
+          </div>
 
-              <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#6b4028]/15">
-                <div class="min-w-0">
-                  <p class="text-xs font-black uppercase tracking-wider text-[#9b5a32] mb-1">Số tiền</p>
-                  <p class="title-font font-black text-4xl text-[#a65333]" id="pricePayment">Đang tải...</p>
-                </div>
-                <button onclick="copyValue('price')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full brown-btn transition">Copy</button>
-              </div>
+          <div class="flex items-center justify-between gap-3 pb-3 border-b border-[#c9a96e]/25">
+            <div class="min-w-0">
+              <p class="text-xs font-black uppercase tracking-wider text-[#7c5c25] mb-1">Số tiền</p>
+              <p class="font-black text-3xl text-[#8a672e]" id="pricePayment">Đang tải...</p>
+            </div>
+            <button onclick="copyValue('price')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full bg-[#111] text-[#f5efe6] hover:bg-[#2a2115] transition">Copy</button>
+          </div>
 
-              <div class="bg-[#fff0d1] border-2 border-[#c47a43]/24 rounded-[22px] p-4 flex items-center justify-between gap-3">
-                <div class="min-w-0">
-                  <p class="text-xs font-black uppercase tracking-wider text-[#a65333] mb-1">Nội dung chuyển khoản</p>
-                  <p class="font-black text-xl text-[#9f3f2e] break-words" id="transferNote">Đang tải...</p>
-                </div>
-                <button onclick="copyValue('transferNote')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full bg-[#9f3f2e] text-[#fff8ea] hover:brightness-105 transition">Copy</button>
-              </div>
+          <div class="bg-[#2a120f] border border-[#ffb2a6]/20 rounded-[24px] p-4 flex items-center justify-between gap-3">
+            <div class="min-w-0">
+              <p class="text-xs font-black uppercase tracking-wider text-[#ffb2a6] mb-1">Nội dung chuyển khoản</p>
+              <p class="font-black text-xl text-[#ffd6d0] break-words" id="transferNote">Đang tải...</p>
+            </div>
+            <button onclick="copyValue('transferNote')" class="shrink-0 px-3.5 py-2 text-xs font-black uppercase rounded-full bg-[#ffd6d0] text-[#2a120f] hover:brightness-105 transition">Copy</button>
+          </div>
 
-              <a href="#register" class="primary-btn block rounded-[18px] px-4 py-3 text-center transition">
-                <span class="block text-sm sm:text-base font-black uppercase tracking-wide">
-                  Bấm để up bill CK thành công
-                </span>
-              </a>
+       <a href="#register"
+   class="group block mt-3 rounded-full
+   bg-gradient-to-r from-[#f0dca8] via-[#c9a96e] to-[#9a7336]
+   border border-[#c9a96e]/60
+   px-4 py-3
+   text-center
+   shadow-[0_16px_38px_rgba(201,169,110,.28)]
+   hover:brightness-105 transition">
+
+    <span class="block text-sm sm:text-base font-black uppercase tracking-wide text-[#120f0a]">
+        BẤM ĐỂ UP BILL CK THÀNH CÔNG
+    </span>
+
+</a>
+
+          <div class="mt-5 rounded-[26px] bg-[#111] border border-[#c9a96e]/30 p-4 sm:p-5 text-center">
+            <p class="text-xs font-black tracking-[.26em] uppercase text-[#c9a96e] mb-2">QR Payment</p>
+            <h3 class="serif text-3xl sm:text-4xl font-black text-[#f5efe6] leading-tight mb-4">Quét QR chuyển khoản</h3>
+
+            <div id="qrBox" class="hidden">
+              <div class="bg-[#fff9ef] rounded-[24px] p-4 inline-block w-full max-w-[280px] mx-auto shadow-[0_16px_40px_rgba(0,0,0,.28)] border border-[#c9a96e]/35">
+                <img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-full rounded-2xl bg-white p-2 shadow-sm">
+              </div>
+              <p class="text-xs text-[#f5efe6]/58 mt-3">Quét mã bằng app ngân hàng để tự động điền thông tin.</p>
             </div>
 
-            <div class="bg-[#fffaf0] border border-[#6b4028]/16 rounded-[28px] p-4 sm:p-5 text-center shadow-[0_12px_30px_rgba(107,64,40,.10)]">
-              <p class="hand-font text-3xl sm:text-4xl text-[#8a5536]">Mã QR thanh toán</p>
-              <h3 class="title-font text-3xl sm:text-4xl font-black text-[#3b2416] leading-tight mb-4">Quét QR</h3>
+            <div id="qrEmpty" class="text-center text-[#f5efe6]/55 py-6">
+              Chưa có QR. Hãy thêm <b>qrImageUrl</b> trong tab Config.
+            </div>
 
-              <div id="qrBox" class="hidden text-center">
-                <div class="cutout rounded-[24px] p-3 inline-block w-full max-w-[280px] mx-auto">
-                  <img id="qrImage" src="" alt="QR chuyển khoản" loading="lazy" decoding="async" class="mx-auto w-full rounded-[18px] bg-white p-2">
-                </div>
-                <p class="text-sm text-[#6b4028]/72 mt-3 font-bold">Quét mã bằng app ngân hàng để tự động điền thông tin.</p>
-              </div>
-
-              <div id="qrEmpty" class="text-center text-[#6b4028]/66 py-8 font-bold">
-                Chưa có QR. Hãy thêm <b>qrImageUrl</b> trong tab Config.
-              </div>
-
-              <div id="downloadQrBox" class="hidden mt-4 text-center">
-                <button onclick="downloadQR()" class="primary-btn w-full sm:w-auto py-3 px-6 rounded-[18px] text-sm font-black uppercase transition">
-                  Tải QR về máy
-                </button>
-              </div>
+            <div id="downloadQrBox" class="hidden mt-4">
+              <button onclick="downloadQR()" class="w-full sm:w-auto py-3 px-6 rounded-full border border-[#c9a96e]/40 text-sm font-black bg-[#c9a96e] text-[#17130d] hover:brightness-105 transition">
+                TẢI QR VỀ MÁY
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- REGISTER PAGE -->
-    <section id="register" class="p-4 sm:p-7 lg:p-10 pt-2 sm:pt-4 pb-8 sm:pb-12">
-      <div class="paper-card rounded-[32px] p-5 sm:p-7 lg:p-8 relative">
-        <div class="tape"></div>
+<!-- FORM -->
+  <section id="register" class="px-5 sm:px-8 lg:px-12 py-8 sm:py-12 pb-12 sm:pb-16">
+    <div class="max-w-5xl mx-auto">
+      <div class="cream-card rounded-[30px] sm:rounded-[34px] p-5 sm:p-8 lg:p-10">
+        <div class="mb-7">
+          <p class="text-xs font-black tracking-[.3em] uppercase text-[#7c5c25] mb-3">Registration</p>
+          <h2 class="serif text-4xl sm:text-5xl font-black leading-tight">Gửi thông tin đăng ký</h2>
+          <p class="mt-3 text-[#6f604b] leading-relaxed">
+            Sau khi chuyển khoản, nhập Gmail nhận khóa học và upload ảnh bill để admin kiểm tra và cấp quyền học trong vòng 24 giờ.
+          </p>
+        </div>
 
-        <div class="grid lg:grid-cols-[.72fr_1.28fr] gap-7 lg:gap-10 items-start">
+        <form id="regForm" class="space-y-6">
           <div>
-            <p class="hand-font text-3xl sm:text-4xl text-[#8a5536]">Phiếu xác nhận</p>
-            <h2 class="title-font text-4xl sm:text-5xl font-black text-[#3b2416] leading-tight">Gửi thông tin đăng ký</h2>
-            <p class="mt-3 text-[#6b4028]/78 font-bold leading-relaxed">
-              Sau khi chuyển khoản, nhập Gmail nhận khóa học và upload ảnh bill để admin kiểm tra, cấp quyền học trong vòng 24 giờ.
-            </p>
+            <label class="block font-black mb-2 text-[#2a2115]">Gmail nhận khóa học</label>
+            <input type="email" id="gmail" required class="w-full border border-[#c9a96e]/45 bg-white/80 rounded-2xl p-4 text-lg outline-none focus:ring-2 focus:ring-[#c9a96e] text-[#17130d]" placeholder="Nhập Gmail của bạn">
           </div>
 
-          <form id="regForm" class="space-y-6">
-            <div>
-              <label class="block font-black mb-2 text-[#3b2416]">Gmail nhận khóa học</label>
-              <input type="email" id="gmail" required class="input-soft w-full rounded-[18px] p-4 text-lg font-bold" placeholder="Nhập Gmail của bạn">
-            </div>
-
-            <div>
-              <label class="block font-black mb-2 text-[#3b2416]">Ảnh bill chuyển khoản</label>
-              <label class="block border-2 border-dashed border-[#6b4028]/32 rounded-[26px] p-6 sm:p-8 text-center cursor-pointer hover:bg-white/45 transition">
-                <input type="file" id="bill" required accept="image/jpeg,image/png,image/webp" class="hidden">
-                <div id="uploadText">
-                  <p class="hand-font text-6xl mb-1 text-[#c47a43]">+</p>
-                  <p class="font-black text-lg text-[#3b2416]">Chọn ảnh bill để xác nhận</p>
-                  <p class="text-sm text-[#6b4028]/70 mt-1 font-bold">Chỉ nhận JPG, PNG, WEBP. Tối đa 5MB.</p>
-                </div>
-                <img id="billPreview" src="" alt="Xem trước bill" class="hidden mt-5 rounded-[18px] border border-[#6b4028]/20 max-h-[520px] w-full object-contain mx-auto shadow-lg bg-white">
-              </label>
-            </div>
-
-            <div id="progressBox" class="hidden">
-              <div class="flex justify-between text-sm mb-2 font-black text-[#6b4028]">
-                <span id="progressText">Đang xử lý...</span>
-                <span id="progressPercent">0%</span>
+          <div>
+            <label class="block font-black mb-2 text-[#2a2115]">Ảnh bill chuyển khoản</label>
+            <label class="block border-2 border-dashed border-[#c9a96e]/60 rounded-[26px] sm:rounded-[28px] p-6 sm:p-8 text-center cursor-pointer hover:bg-white/55 transition">
+              <input type="file" id="bill" required accept="image/jpeg,image/png,image/webp" class="hidden">
+              <div id="uploadText">
+                <p class="serif text-5xl mb-3">＋</p>
+                <p class="font-black text-lg">Chọn ảnh bill để xác nhận</p>
+                <p class="text-sm text-[#6f604b] mt-1">Chỉ nhận JPG, PNG, WEBP. Tối đa 5MB.</p>
               </div>
-              <div class="w-full h-3 bg-[#ead6ad] rounded-full overflow-hidden">
-                <div id="progressBar" class="progress-bar h-full rounded-full" style="width:0%"></div>
-              </div>
+              <img id="billPreview" src="" alt="Xem trước bill" class="hidden mt-5 rounded-2xl border border-[#c9a96e]/35 max-h-[520px] w-full object-contain mx-auto shadow-lg bg-white">
+            </label>
+          </div>
+
+          <div id="progressBox" class="hidden">
+            <div class="flex justify-between text-sm mb-2 font-bold text-[#4b3c28]">
+              <span id="progressText">Đang xử lý...</span>
+              <span id="progressPercent">0%</span>
             </div>
+            <div class="w-full h-3 bg-[#d9c6a6] rounded-full overflow-hidden">
+              <div id="progressBar" class="progress-bar h-full rounded-full" style="width:0%"></div>
+            </div>
+          </div>
 
-            <button id="btnSubmit" type="submit" class="brown-btn w-full py-4 rounded-[18px] font-black text-lg transition shadow-lg disabled:opacity-60 disabled:cursor-not-allowed uppercase tracking-wide">
-              Gửi đăng ký
-            </button>
+          <button id="btnSubmit" type="submit" class="w-full bg-[#111] text-[#f5efe6] py-4 rounded-full font-black text-lg hover:bg-[#2a2115] transition shadow-lg disabled:opacity-60 disabled:cursor-not-allowed uppercase tracking-wide">
+            Gửi đăng ký
+          </button>
 
-            <p class="text-sm text-[#6b4028]/72 text-center leading-relaxed font-bold">
-              Gmail của bạn sẽ được cấp quyền truy cập thư mục khóa học sau khi xác nhận thanh toán.
-            </p>
-          </form>
-        </div>
+          <p class="text-sm text-[#6f604b] text-center leading-relaxed">
+            Gmail của bạn sẽ được cấp quyền truy cập thư mục khóa học sau khi xác nhận thanh toán.
+          </p>
+        </form>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
-</div>
+</main>
 
-<div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-[#3b2416] text-[#fff8ea] px-5 py-3 rounded-full opacity-0 transition duration-300 pointer-events-none text-sm font-black z-50 shadow-xl">
+<div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-[#f5efe6] text-[#111] px-5 py-3 rounded-full opacity-0 transition duration-300 pointer-events-none text-sm font-black z-50 shadow-xl">
   Đã sao chép
 </div>
 
