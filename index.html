@@ -8,50 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com">
-function setupMobilePaymentSticky(){
-  const sticky=document.getElementById('mobilePaymentSticky');
-  const action=document.getElementById('mobileStickyAction');
-  const payment=document.getElementById('payment');
-  const qr=document.getElementById('qrSection');
-  const register=document.getElementById('register');
-  if(!sticky||!action||!payment||!qr||!register)return;
-
-  const isMobile=()=>window.matchMedia('(max-width:640px)').matches;
-
-  function updateSticky(){
-    if(!isMobile()){
-      sticky.classList.remove('show');
-      return;
-    }
-    const paymentRect=payment.getBoundingClientRect();
-    const registerRect=register.getBoundingClientRect();
-    const inPaymentArea=paymentRect.top<window.innerHeight*0.75 && registerRect.top>window.innerHeight*0.15;
-
-    if(inPaymentArea){
-      sticky.classList.add('show');
-    }else{
-      sticky.classList.remove('show');
-    }
-
-    const qrRect=qr.getBoundingClientRect();
-    const qrSeen=qrRect.top<window.innerHeight*0.55;
-    if(qrSeen){
-      action.href='#register';
-      action.innerText='Đã chuyển khoản - Gửi bill';
-    }else{
-      action.href='#qrSection';
-      action.innerText='Xem mã QR chuyển khoản';
-    }
-  }
-
-  window.addEventListener('scroll',updateSticky,{passive:true});
-  window.addEventListener('resize',updateSticky);
-  updateSticky();
-}
-setupMobilePaymentSticky();
-
-</script>
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
   @keyframes arrowBlink {
   0%,100% {
@@ -119,22 +76,32 @@ setupMobilePaymentSticky();
   .mobile-mini-actions{
     display:grid;
     gap:10px;
-    margin-top:12px;
+    margin-top:14px;
   }
   .mobile-mini-actions a{
     text-decoration:none;
     text-align:center;
-    border-radius:999px;
-    padding:13px 14px;
+    border-radius:22px;
+    padding:15px 14px;
     font-size:13px;
     font-weight:900;
-    letter-spacing:.08em;
-    text-transform:uppercase;
+    letter-spacing:.04em;
+    text-transform:none;
   }
   .mobile-qr-btn{
-    background:#241712;
-    color:#fff7ef;
-    box-shadow:0 12px 25px rgba(36,23,18,.16);
+    background:#f1ba72;
+    color:#241712;
+    border:2px solid rgba(36,23,18,.10);
+    box-shadow:0 12px 25px rgba(241,186,114,.28);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+  }
+  .mobile-qr-btn:before{
+    content:"▦";
+    font-size:22px;
+    line-height:1;
   }
   .mobile-bill-after-qr{
     margin-top:16px;
@@ -176,13 +143,15 @@ setupMobilePaymentSticky();
     text-align:center;
     border-radius:18px;
     padding:14px 12px;
-    background:#f1ba72;
-    color:#241712;
+    background:#b65c4b;
+    color:#fff;
     font-weight:900;
     text-transform:uppercase;
-    letter-spacing:.09em;
+    letter-spacing:.06em;
     text-decoration:none;
     font-size:13px;
+    box-shadow:0 12px 28px rgba(182,92,75,.35);
+    animation:arrowBlink 1.05s infinite;
   }
 }
 
@@ -240,14 +209,8 @@ setupMobilePaymentSticky();
 <div class="min-w-0">
 <p class="mini-kicker text-[#b65c4b] mb-1">Số tiền</p>
 <p class="serif font-black text-5xl text-[#b65c4b]" id="pricePayment">Đang tải...</p>
-<div class="mt-2 flex items-start gap-2">
-<span>👇</span>
-<span class="text-xs sm:text-sm font-black text-[#b65c4b]">
-Bấm xem mã QR để chuyển khoản nhanh. Sau khi CK xong, kéo xuống bấm GỬI BILL.
-</span>
-</div>
 <div class="mobile-mini-actions mobile-only">
-  <a href="#qrSection" class="mobile-qr-btn">Xem mã QR chuyển khoản</a>
+  <a href="#qrSection" class="mobile-qr-btn">Xem mã QR chuyển khoản nhanh tại đây</a>
 </div>
 </div>
 <button onclick="copyValue('price')" class="shrink-0 dark-btn rounded-full px-4 py-2 text-xs font-black uppercase tracking-wider transition">Copy</button>
@@ -262,7 +225,7 @@ Bấm xem mã QR để chuyển khoản nhanh. Sau khi CK xong, kéo xuống b�
 <section id="register" class="px-4 sm:px-6 lg:px-10 py-5 sm:py-8 pb-12 sm:pb-16"><div class="max-w-7xl mx-auto grid lg:grid-cols-[.78fr_1.22fr] gap-5 lg:gap-7 items-stretch"><div class="pin rounded-[34px] p-5 sm:p-7 bg-[#b65c4b] text-white"><p class="mini-kicker text-white/70 mb-3">Upload Receipt</p><h2 class="serif text-5xl sm:text-6xl lg:text-7xl leading-none">Gửi bill<br>xác nhận</h2><p class="mt-5 text-white/78 text-base sm:text-lg font-bold leading-relaxed">Sau khi thanh toán, nhập Gmail nhận khóa học và upload ảnh bill. Admin sẽ kiểm tra và cấp quyền học trong vòng 24 giờ.</p></div><div class="pin rounded-[34px] p-5 sm:p-7 bg-white"><form id="regForm" class="space-y-6"><div><label class="block font-black mb-2 text-[#241712] uppercase tracking-wider text-sm">Gmail nhận khóa học</label><input type="email" id="gmail" required class="input-pin w-full rounded-[24px] p-4 text-lg font-bold" placeholder="Nhập Gmail của bạn"></div><div><label class="block font-black mb-2 text-[#241712] uppercase tracking-wider text-sm">Ảnh bill chuyển khoản</label><label class="block border-2 border-dashed border-black/18 rounded-[30px] p-6 sm:p-8 text-center cursor-pointer hover:bg-[#faf7f2] transition"><input type="file" id="bill" required accept="image/jpeg,image/png,image/webp" class="hidden"><div id="uploadText"><p class="serif text-6xl mb-1 text-[#b65c4b]">+</p><p class="font-black text-lg text-[#241712]">Chọn ảnh bill để xác nhận</p><p class="text-sm text-black/55 mt-1 font-bold">Chỉ nhận JPG, PNG, WEBP. Tối đa 5MB.</p></div><img id="billPreview" src="" alt="Xem trước bill" class="hidden mt-5 rounded-[24px] border border-black/10 max-h-[520px] w-full object-contain mx-auto shadow-lg bg-white"></label></div><div id="progressBox" class="hidden"><div class="flex justify-between text-sm mb-2 font-black text-[#241712]"><span id="progressText">Đang xử lý...</span><span id="progressPercent">0%</span></div><div class="w-full h-3 bg-[#e9dfd2] rounded-full overflow-hidden"><div id="progressBar" class="progress-bar h-full rounded-full" style="width:0%"></div></div></div><button id="btnSubmit" type="submit" class="dark-btn w-full py-4 rounded-full font-black text-lg transition disabled:opacity-60 disabled:cursor-not-allowed uppercase tracking-[.15em]">Gửi đăng ký</button><p class="text-sm text-black/55 text-center leading-relaxed font-bold">Gmail của bạn sẽ được cấp quyền truy cập thư mục khóa học sau khi xác nhận thanh toán.</p></form></div></div></section>
 </div>
 <div id="mobilePaymentSticky" class="mobile-sticky-payment mobile-only">
-  <a id="mobileStickyAction" href="#qrSection">Xem mã QR chuyển khoản</a>
+  <a id="mobileStickyAction" href="#register">Tôi đã chuyển khoản - Gửi bill</a>
 </div>
 <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-[#241712] text-white px-5 py-3 rounded-full opacity-0 transition duration-300 pointer-events-none text-sm font-black z-50 shadow-xl">Đã sao chép</div>
 <script>
@@ -301,14 +264,15 @@ function setupMobilePaymentSticky(){
     }
 
     const qrRect=qr.getBoundingClientRect();
-    const qrSeen=qrRect.top<window.innerHeight*0.55;
-    if(qrSeen){
-      action.href='#register';
-      action.innerText='Đã chuyển khoản - Gửi bill';
-    }else{
-      action.href='#qrSection';
-      action.innerText='Xem mã QR chuyển khoản';
+    const qrVisible=qrRect.top<window.innerHeight*0.75 && qrRect.bottom>window.innerHeight*0.20;
+
+    if(qrVisible){
+      sticky.classList.remove('show');
+      return;
     }
+
+    action.href='#register';
+    action.innerText='Tôi đã chuyển khoản - Gửi bill';
   }
 
   window.addEventListener('scroll',updateSticky,{passive:true});
